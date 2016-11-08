@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  */
@@ -14,9 +13,11 @@ class Validationform extends CI_Controller
 	}
 
   public function validation(){
+      $data = array();
 			//	Chargement de la bibliothèque
 			$this->load->library('form_validation');
-
+      $this->validationCouleur($_POST);
+      $this->validationAsseccoire($_POST);
 
       /********* data de la table WA_contenu_demande **********/
       $gamme_produit = $_POST['gamme_produit'];
@@ -26,6 +27,8 @@ class Validationform extends CI_Controller
       $etat_surface = $_POST['etat_surface'];
       $conditionnement_botte = $this->validationConditionnementBotte($_POST);
       $conditionnement_palette = $this->validationConditionnementPalette($_POST);
+      $libelle_famille = $_POST['libelle_famille'];
+      $libelle_sous_famille = $this->validationSousFamille($_POST);
       $unite_vente = $_POST['unite_vente'];
       $unite_facture = $_POST['unite_facture'];
       $produit_spec_client = $this->validationProduitSpecClient($_POST);
@@ -59,7 +62,6 @@ class Validationform extends CI_Controller
       /********* data de la table WA_accessoires *********/
       $accessoire = $_POST['accessoire'];
 
-
       /**** Initialisation du model contenu_demande_model.php ***/
       $this->load->model('contenu_demande_model', 'contenuDemande');
       $this->load->model('demande_model', 'demande');
@@ -71,37 +73,64 @@ class Validationform extends CI_Controller
 
 
       /*** Appel de la méthode add_contenu_demande dans le model contenu_demande_model ***/
-    /*	$resultatContenuDemande = $this->contenuDemande->add_contenu_demande($gamme_produit, $volume_mois, $essence, $profil,
-                                          $etat_surface, $conditionnement_botte, $conditionnement_palette,
+      $resultatContenuDemande = $this->contenuDemande->add_contenu_demande($gamme_produit, $volume_mois, $essence, $profil,
+                                          $etat_surface, $conditionnement_botte, $conditionnement_palette, $libelle_famille, $libelle_sous_famille,
                                           $unite_vente, $unite_facture, $produit_spec_client, $etiquette_botte,
                                           $etiquette_gencod, $normes_environnementales, $marquage_ce);
 
-    	var_dump($resultatContenuDemande);*/
 
       /*** on récupére le dernier ID insérer de la table contenu_demande ***/
-    /*  $last_id_insert = $this->contenuDemande->get_last_id_contenu_demande();
+      $last_id_insert = $this->contenuDemande->get_last_id_contenu_demande();
       $id_contenu_demande = $last_id_insert[0]->id_contenu_demande;
 
       $resultatDemande = $this->demande->add_demande($demandeur, $motif_demande, $id_contenu_demande);
       $resultatTraitement = $this->traitement->add_traitement($etat_traitement, $classe_traitement, $couleur_traitement, $id_contenu_demande);
       $resultatDimensions = $this->dimensions->add_dimensions($longueur_m, $largeur_mm, $epaisseur_mm, $id_contenu_demande);
+
+
       $resultatCouleur = $this->couleur->add_couleur($couleur, $id_contenu_demande);
+      if (isset($_POST['couleur2'])) {
+        $couleur2 = $_POST['couleur2'];
+        $resultatCouleur = $this->couleur->add_couleur($couleur2, $id_contenu_demande);
+      }
+      if (isset($_POST['couleur3'])) {
+        $couleur3 = $_POST['couleur3'];
+        $resultatCouleur = $this->couleur->add_couleur($couleur3, $id_contenu_demande);
+      }
+      if (isset($_POST['couleur4'])) {
+        $couleur4 = $_POST['couleur4'];
+        $resultatCouleur = $this->couleur->add_couleur($couleur4, $id_contenu_demande);
+      }
+
       $resultatMarqueCommercial = $this->marqueCommercial->add_marque_commercial($marque_commercial, $mdd, $cnuf, $id_contenu_demande);
+
       $resultatAccessoires = $this->accessoires->add_accessoires($accessoire, $id_contenu_demande);
+      if (isset($_POST['accessoire2'])) {
+        $accessoire2 = $_POST['accessoire2'];
+        $resultatAccessoires = $this->accessoires->add_accessoires($accessoire2, $id_contenu_demande);
+      }
+      if (isset($_POST['accessoire3'])) {
+        $accessoire3 = $_POST['accessoire3'];
+        $resultatAccessoires = $this->accessoires->add_accessoires($accessoire3, $id_contenu_demande);
+      }
+      if (isset($_POST['accessoire4'])) {
+        $accessoire4 = $_POST['accessoire4'];
+        $resultatAccessoires = $this->accessoires->add_accessoires($accessoire4, $id_contenu_demande);
+      }
 
-      var_dump($resultatDemande);
-      var_dump($resultatTraitement);
-      var_dump($resultatDimensions);
-      var_dump($resultatCouleur);
-      var_dump($resultatMarqueCommercial);
-      var_dump($resultatAccessoires);*/
 
+      if($resultatContenuDemande == 'true'){
+        $data['alert'] = 'true';
+        $data['contenu_alert'] = 'La requête d\'insertion a bien été enregistré';
+        $this->send_mail();
+      } else {
+        $data['alert'] = 'false';
+        $data['contenu_alert'] = 'une erreur est survenu lors du traitement de la demande';
+      }
 
-
-      // $this->load->database();
-      echo '<pre>';
-      var_dump($_POST);
-      echo '</pre>';
+      $this->load->view('header-footer/header.php');
+	  	$this->load->view('formulaireArticle/formulaireArticle', $data);
+    	$this->load->view('header-footer/footer.php');
 
 
 	}
@@ -163,6 +192,85 @@ class Validationform extends CI_Controller
     return $conditionnement_palette;
   }
 
-  
+  public function validationSousFamille($post){
+    if(isset($_POST['libelle_sous_famille'])){
+      $libelle_sous_famille = $_POST['libelle_sous_famille'];
+    } else{
+      $libelle_sous_famille = 'NULL';
+    }
+    return $libelle_sous_famille;
+  }
+
+  public function validationCouleur($post){
+    if($_POST['couleur2'] == ''){
+      unset($_POST['couleur2']);
+    }
+
+    if($_POST['couleur3'] == ''){
+      unset($_POST['couleur3']);
+    }
+
+    if($_POST['couleur4'] == ''){
+      unset($_POST['couleur4']);
+    }
+  }
+
+  public function validationAsseccoire($post){
+    if($_POST['accessoire2'] == ''){
+      unset($_POST['accessoire2']);
+    }
+
+    if($_POST['accessoire3'] == ''){
+      unset($_POST['accessoire3']);
+    }
+
+    if($_POST['accessoire4'] == ''){
+      unset($_POST['accessoire4']);
+    }
+  }
+
+  public function validationEtatTraitement($post){
+    if(strlen($_POST['etat_traitement']) > 1){
+
+      $data['alert'] = 'false';
+      $data['contenu_alert'] = 'la champ etat_traitement ne dois pas excéder 1 caractére';
+
+      $this->load->view('header-footer/header.php');
+	  	$this->load->view('formulaireArticle/formulaireArticle', $data);
+    	$this->load->view('header-footer/footer.php');
+    }
+  }
+
+  public function send_mail(){
+		//$this->load->library('envoie_email');
+		//$this->envoie_email->send_mail();
+		//$this->envoie_email->hello();
+
+		$config = Array(
+										'protocol' => 'mail',
+										'mail_host' => 'ExchangeISB.isb.groupe-isb.fr',
+										'mail_port' => 25001,
+										'mail_user' => '',
+										'mail_pass' => '',
+										'mailtype'  => 'html',
+										'charset'   => 'utf-8',
+                    'wrapchars' => 76,
+                    'newline'   => '\r\n'
+								);
+
+		$this->load->library('email', $config);
+
+		$this->email->from('jimmy.guevel@groupe-isb.fr', 'Jimmy');
+		$this->email->to('jimmy.guevel@groupe-isb.fr');
+		//$this->email->cc('jimmy.guevel@groupe-isb.fr');
+
+		$this->email->subject('demande création article');
+    $this->email->message("salut");
+
+
+		$this->email->send();
+
+	}
+
 
 }

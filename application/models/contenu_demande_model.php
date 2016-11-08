@@ -10,7 +10,7 @@ class Contenu_demande_model extends CI_Model
 	}
 
   public function add_contenu_demande($gamme_produit, $volume_mois, $essence, $profil,
-                                      $etat_surface, $conditionnement_botte, $conditionnement_palette,
+                                      $etat_surface, $conditionnement_botte, $conditionnement_palette, $libelle_famille, $libelle_sous_famille,
                                       $unite_vente, $unite_facture, $produit_spec_client, $etiquette_botte,
                                       $etiquette_gencod, $normes_environnementales, $marquage_ce)
   {
@@ -21,6 +21,8 @@ class Contenu_demande_model extends CI_Model
       $this->db->set('etat_surface',  $etat_surface);
       $this->db->set('conditionnement_botte',   $conditionnement_botte);
       $this->db->set('conditionnement_palette', $conditionnement_palette);
+      $this->db->set('libelle_famille',   $libelle_famille);
+      $this->db->set('libelle_sous_famille', $libelle_sous_famille);
       $this->db->set('unite_vente',  $unite_vente);
       $this->db->set('unite_facture',   $unite_facture);
       $this->db->set('produit_spec_client', $produit_spec_client);

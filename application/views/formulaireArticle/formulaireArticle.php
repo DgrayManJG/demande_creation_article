@@ -1,6 +1,20 @@
-<div class="container">
+<?php
+  if(isset($alert)){
+    if($alert = 'true'){
+      echo '<div class="alert alert-success">
+              <strong>Sucess!</strong> "'.$contenu_alert.'".
+            </div>';
+    } else {
+      echo '<div class="alert alert-danger">
+              <strong>Danger!</strong> "'.$contenu_alert.'".
+            </div>';
+    }
+  }
+ ?>
+
+  <div class="container">
    <div class="page-header">
-      <h1>Formulaire creation article</h1>
+      <h1>Formulaire création article</h1>
     </div>
   </div>
 
@@ -48,7 +62,6 @@
                 <div class="col-sm-4">
                   <input type="text" id="etat_surface" name="etat_surface" placeholder="etat_surface" class="form-control">
                 </div>
-
               </div>
 
 
@@ -124,101 +137,68 @@
                             </script>
 
 
-                            <?php
-                            // echo '<pre>';
-                            // var_dump($FAMILLE_LIBELLE);
-                            // echo '</pre>';
-                            ?>
 
-                            <?php
-                            // echo '<pre>';
-                            // var_dump($FAMILLE_ID);
-                            // echo '</pre>';
-                            ?>
 
 
               <div class="form-group">
                 <legend>famille cities</legend>
                 <div class="col-sm-4">
                   <select type="pContactMethod" id="libelle_famille" name="libelle_famille" placeholder="Contact Method" class="form-control">
-                      <?php foreach ($FAMILLE_LIBELLE as $row_famille_libelle):?>
 
-                        <option value="<?php echo $row_famille_libelle; ?>"><?php echo $row_famille_libelle;?></option>
-
-                      <?php endforeach;?>
                   </select>
                 </div>
               </div>
 
+              <script type="text/javascript">
+                            $.ajax({
+                                url: 'formulaire/getProduit',
+                                dataType: 'json',
+                                success: function(json) {
+                                  $('#libelle_famille').append('<option value="null"></option>');
+                                  $.each(json, function(index, value) {
+                                      $('#libelle_famille').append('<option value="'+ value +'">'+ value +'</option>');
+                                    });
+                                }
+                            });
+              </script>
 
 
 
-                <!-- <div class="libelle_sous_famille2">
+                <div class="libelle_sous_famille">
                   <div class="form-group">
                       <legend>sous_famille cities</legend>
                       <div class="col-sm-4">
                         <select type="pContactMethod" id="libelle_sous_famille" name="libelle_sous_famille" placeholder="Contact Method" class="form-control">
-                          <option value="null"></option>
-                              <?php
 
-                              // foreach ($arraySite as $nomSite) {
-                              //   echo "\t", '<option value="', $nomSite["nom_magasin"], '">', $nomSite["nom_magasin"], '</option>', "\n";
-                              //}
-                              ?>
                         </select>
                       </div>
                     </div>
-                </div> -->
+                </div>
 
-
-            <div class="form-group row">
-              <label for="site" class="col-xs-2 col-form-label">Site : </label>
-              <div class="row">
-                <div class="col-xs-4">
-                  <select name="site" id="site" class="form-control">
-
-      						</select>
-	                </div>
-	              </div>
-	            </div>
 
                 <script type="text/javascript">
-                
-                  $('#libelle_sous_famille2').hide();
+                  $('.libelle_sous_famille').hide();
                   $("select[name='libelle_famille']").change(function() {
-
                           var value = $(this).val();
-
-                          alert(value);
-
-                          $.ajax({
-                              url: 'sousFamille.php',
-                              data:'LIBELLE='+ value,
-                              dataType: 'json',
-                              success: function(json) {
-                              	$('#site').append('<option value="null"></option>');
-                              	$.each(json, function(index, value) {
-                                  	$('#site').append('<option value="'+ index +'">'+ value +'</option>');
-                                  });
-                              }
-                          });
+                          if (value == 'AUTRES ARTICLES - AI') {
+                              $('.libelle_sous_famille').hide();
+                          } else {
+                            $('#libelle_sous_famille').empty();
+                              $.ajax({
+                                  url: 'formulaire/getSousProduit',
+                                  data:'LIBELLE='+ value,
+                                  dataType: 'json',
+                                  success: function(json) {
+                                    $('.libelle_sous_famille').show();
+                                  	$('#libelle_sous_famille').append('<option value="null"></option>');
+                                  	$.each(json, function(index, value) {
+                                      	$('#libelle_sous_famille').append('<option value="'+ value +'">'+ value +'</option>');
+                                      });
+                                  }
+                              });
+                          }
                   });
-
-                    </script>
-
-
-              <!--<div class="form-group">
-                <div class="col-sm-4">
-                  <input type="text" name="city" placeholder="City" class="form-control">
-                </div>
-                <div class="col-sm-2">
-                  <input type="text" name="state" placeholder="State" class="form-control">
-                </div>
-                <div class="col-sm-4">
-                  <input type="text" name="postalCode" placeholder="Post Code" class="form-control">
-                </div>
-              </div>-->
-
+                </script>
 
 
               <div class="form-group">
@@ -239,7 +219,7 @@
               <div class="form-group">
                 <legend>traitement</legend>
                   <div class="col-sm-4">
-                    <input type="text" id="etat_traitement" name="etat_traitement" placeholder="etat_traitement" class="form-control">
+                    <input type="text" id="etat_traitement" name="etat_traitement" maxlength="1" placeholder="etat_traitement" class="form-control">
                   </div>
                   <div class="col-sm-4">
                     <input type="text" id="classe_traitement" name="classe_traitement" placeholder="classe_traitement" class="form-control">
@@ -250,14 +230,39 @@
               </div>
 
 
-
               <div class="form-group">
                 <legend>couleur souhaité</legend>
                   <div class="col-sm-4">
                     <input type="text" id="couleur" name="couleur" placeholder="couleur" class="form-control">
                   </div>
+                  <input type="button" id="add_couleur" value="Ajouter d'autre couleur"/>
               </div>
 
+              <!-- AJOUTER COULEUR -->
+              <div class="form-group" id="suplement_couleur">
+                <h4><strong>d'autre couleur</strong></h4>
+                  <div class="col-sm-4">
+                    <input type="text" id="couleur2" name="couleur2" placeholder="couleur2" class="form-control">
+                  </div>
+
+                  <div class="col-sm-4">
+                    <input type="text" id="couleur3" name="couleur3" placeholder="couleur3" class="form-control">
+                  </div>
+
+                  <div class="col-sm-4">
+                    <input type="text" id="couleur4" name="couleur4" placeholder="couleur4" class="form-control">
+                  </div>
+              </div>
+
+
+              <script type="text/javascript">
+                $('#suplement_couleur').hide();
+
+                document.querySelector('#add_couleur').addEventListener('click', function(event) {
+
+                  $('#suplement_couleur').show();
+                });
+              </script>
 
 
               <!-- Text input-->
@@ -458,10 +463,39 @@
               <legend>Accessoires souhaités</legend>
               <div class="col-sm-4">
                 <input type="text" id="accessoire" name="accessoire" placeholder="accessoire" class="form-control">
+              </div>
+              <input type="button" id="add_accessoire" value="Ajouter d'autre accessoire"/>
             </div>
 
-              <div class="form-group"></br></br>
 
+            <!-- AJOUTER ASSECCOIRES -->
+            <div class="form-group" id="suplement_accessoire">
+              <h4><strong>d'autre accessoire</strong></h4>
+                <div class="col-sm-4">
+                  <input type="text" id="accessoire2" name="accessoire2" placeholder="accessoire2" class="form-control">
+                </div>
+
+                <div class="col-sm-4">
+                  <input type="text" id="accessoire3" name="accessoire3" placeholder="accessoire3" class="form-control">
+                </div>
+
+                <div class="col-sm-4">
+                  <input type="text" id="accessoire4" name="accessoire4" placeholder="accessoire4" class="form-control">
+                </div>
+            </div>
+
+
+            <script type="text/javascript">
+              $('#suplement_accessoire').hide();
+
+              document.querySelector('#add_accessoire').addEventListener('click', function(event) {
+
+                $('#suplement_accessoire').show();
+              });
+            </script>
+
+
+              <div class="form-group"></br></br>
                 <legend>Normes environnementales</legend>
                  <div class="col-md-9">
                      <label class="radio-inline">
