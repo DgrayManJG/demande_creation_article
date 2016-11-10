@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 04 Novembre 2016 à 17:13
+-- Généré le :  Mer 09 Novembre 2016 à 10:43
 -- Version du serveur :  10.1.16-MariaDB
 -- Version de PHP :  5.6.24
 
@@ -47,6 +47,8 @@ CREATE TABLE `wa_contenu_demande` (
   `etat_surface` varchar(50) DEFAULT NULL COMMENT 'Raboté brossé, raboté, brut de sciage fin, autre',
   `conditionnement_botte` varchar(150) DEFAULT NULL COMMENT 'si réponse non dans le traitement le champs deviens null sinon on remplis le champs',
   `conditionnement_palette` varchar(150) DEFAULT NULL COMMENT 'si réponse non dans le traitement le champs deviens null sinon on remplis le champs',
+  `libelle_famille` varchar(150) NOT NULL,
+  `libelle_sous_famille` varchar(150) NOT NULL,
   `unite_vente` varchar(45) DEFAULT NULL COMMENT 'default : M², M³, CTML, unite, botte',
   `unite_facture` varchar(45) DEFAULT NULL COMMENT 'default : M², M³, CTML, unite, botte',
   `produit_spec_client` varchar(45) DEFAULT NULL COMMENT 'produit spécifique pour un client',
@@ -160,6 +162,35 @@ INSERT INTO `wa_famille` (`id_famille`, `CODE`, `LIBELLE`, `persistenceVersion`)
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `wa_longueur`
+--
+
+CREATE TABLE `wa_longueur` (
+  `id_longueur` int(11) NOT NULL,
+  `longueur_en_m` varchar(150) DEFAULT NULL,
+  `ref_article_client` varchar(150) DEFAULT NULL,
+  `gencod_client` varchar(150) DEFAULT NULL,
+  `wa_nouvelle_longueur_id_nouvelle_longueur` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `wa_longueur_traitement`
+--
+
+CREATE TABLE `wa_longueur_traitement` (
+  `id_longueur_traitement` int(11) NOT NULL,
+  `longueur_en_m` varchar(150) DEFAULT NULL,
+  `ref_article_client` varchar(150) DEFAULT NULL,
+  `gencod_client` varchar(150) DEFAULT NULL,
+  `wa_new_trtmt_ask_id_new_trtmt_ask` int(11) NOT NULL,
+  `wa_new_trtmt_ask_wa_new_trtmt_id_new_trtmt` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `wa_marque_commercial`
 --
 
@@ -170,6 +201,48 @@ CREATE TABLE `wa_marque_commercial` (
   `cnuf` varchar(150) DEFAULT NULL,
   `WA_contenu_demande_id_contenu_demande` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `wa_new_trtmt`
+--
+
+CREATE TABLE `wa_new_trtmt` (
+  `id_new_trtmt` int(11) NOT NULL,
+  `demandeur` varchar(100) DEFAULT NULL,
+  `date_demande` date DEFAULT NULL,
+  `motif_demande` varchar(200) DEFAULT NULL,
+  `code_article_citis` varchar(150) DEFAULT NULL,
+  `libelle_article_citis` varchar(150) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `wa_new_trtmt_ask`
+--
+
+CREATE TABLE `wa_new_trtmt_ask` (
+  `id_new_trtmt_ask` int(11) NOT NULL,
+  `libelle` varchar(45) DEFAULT NULL,
+  `wa_new_trtmt_id_new_trtmt` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `wa_nouvelle_longueur`
+--
+
+CREATE TABLE `wa_nouvelle_longueur` (
+  `id_nouvelle_longueur` int(11) NOT NULL,
+  `demandeur` varchar(100) DEFAULT NULL,
+  `date_demande` date DEFAULT NULL,
+  `motif_demande` varchar(200) DEFAULT NULL,
+  `code_article_citis` varchar(150) DEFAULT NULL,
+  `libelle_article_citis` varchar(150) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -555,11 +628,44 @@ ALTER TABLE `wa_famille`
   ADD PRIMARY KEY (`id_famille`);
 
 --
+-- Index pour la table `wa_longueur`
+--
+ALTER TABLE `wa_longueur`
+  ADD PRIMARY KEY (`id_longueur`,`wa_nouvelle_longueur_id_nouvelle_longueur`),
+  ADD KEY `fk_wa_longueur_wa_nouvelle_longueur1_idx` (`wa_nouvelle_longueur_id_nouvelle_longueur`);
+
+--
+-- Index pour la table `wa_longueur_traitement`
+--
+ALTER TABLE `wa_longueur_traitement`
+  ADD PRIMARY KEY (`id_longueur_traitement`,`wa_new_trtmt_ask_id_new_trtmt_ask`,`wa_new_trtmt_ask_wa_new_trtmt_id_new_trtmt`),
+  ADD KEY `fk_wa_longueur_traitement_wa_new_trtmt_ask1_idx` (`wa_new_trtmt_ask_id_new_trtmt_ask`,`wa_new_trtmt_ask_wa_new_trtmt_id_new_trtmt`);
+
+--
 -- Index pour la table `wa_marque_commercial`
 --
 ALTER TABLE `wa_marque_commercial`
   ADD PRIMARY KEY (`id_marque_commercial`,`WA_contenu_demande_id_contenu_demande`),
   ADD KEY `fk_marque_commercial_WA_contenu_demande1_idx` (`WA_contenu_demande_id_contenu_demande`);
+
+--
+-- Index pour la table `wa_new_trtmt`
+--
+ALTER TABLE `wa_new_trtmt`
+  ADD PRIMARY KEY (`id_new_trtmt`);
+
+--
+-- Index pour la table `wa_new_trtmt_ask`
+--
+ALTER TABLE `wa_new_trtmt_ask`
+  ADD PRIMARY KEY (`id_new_trtmt_ask`,`wa_new_trtmt_id_new_trtmt`),
+  ADD KEY `fk_wa_new_trtmt_ask_wa_new_trtmt1_idx` (`wa_new_trtmt_id_new_trtmt`);
+
+--
+-- Index pour la table `wa_nouvelle_longueur`
+--
+ALTER TABLE `wa_nouvelle_longueur`
+  ADD PRIMARY KEY (`id_nouvelle_longueur`);
 
 --
 -- Index pour la table `wa_sous_famille`
@@ -582,37 +688,62 @@ ALTER TABLE `wa_traitement`
 -- AUTO_INCREMENT pour la table `wa_accessoires`
 --
 ALTER TABLE `wa_accessoires`
-  MODIFY `id_accessoire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_accessoire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 --
 -- AUTO_INCREMENT pour la table `wa_contenu_demande`
 --
 ALTER TABLE `wa_contenu_demande`
-  MODIFY `id_contenu_demande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_contenu_demande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 --
 -- AUTO_INCREMENT pour la table `wa_couleur`
 --
 ALTER TABLE `wa_couleur`
-  MODIFY `id_couleur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_couleur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 --
 -- AUTO_INCREMENT pour la table `wa_demande`
 --
 ALTER TABLE `wa_demande`
-  MODIFY `id_demande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_demande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 --
 -- AUTO_INCREMENT pour la table `wa_dimensions`
 --
 ALTER TABLE `wa_dimensions`
-  MODIFY `id_dimensions` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_dimensions` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 --
 -- AUTO_INCREMENT pour la table `wa_famille`
 --
 ALTER TABLE `wa_famille`
   MODIFY `id_famille` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
+-- AUTO_INCREMENT pour la table `wa_longueur`
+--
+ALTER TABLE `wa_longueur`
+  MODIFY `id_longueur` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `wa_longueur_traitement`
+--
+ALTER TABLE `wa_longueur_traitement`
+  MODIFY `id_longueur_traitement` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT pour la table `wa_marque_commercial`
 --
 ALTER TABLE `wa_marque_commercial`
-  MODIFY `id_marque_commercial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_marque_commercial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+--
+-- AUTO_INCREMENT pour la table `wa_new_trtmt`
+--
+ALTER TABLE `wa_new_trtmt`
+  MODIFY `id_new_trtmt` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `wa_new_trtmt_ask`
+--
+ALTER TABLE `wa_new_trtmt_ask`
+  MODIFY `id_new_trtmt_ask` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `wa_nouvelle_longueur`
+--
+ALTER TABLE `wa_nouvelle_longueur`
+  MODIFY `id_nouvelle_longueur` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `wa_sous_famille`
 --
@@ -622,7 +753,7 @@ ALTER TABLE `wa_sous_famille`
 -- AUTO_INCREMENT pour la table `wa_traitement`
 --
 ALTER TABLE `wa_traitement`
-  MODIFY `id_traitement` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_traitement` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 --
 -- Contraintes pour les tables exportées
 --
@@ -652,10 +783,28 @@ ALTER TABLE `wa_dimensions`
   ADD CONSTRAINT `fk_WA_dimensions_WA_contenu_demande` FOREIGN KEY (`WA_contenu_demande_id_contenu_demande`) REFERENCES `wa_contenu_demande` (`id_contenu_demande`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Contraintes pour la table `wa_longueur`
+--
+ALTER TABLE `wa_longueur`
+  ADD CONSTRAINT `fk_wa_longueur_wa_nouvelle_longueur1` FOREIGN KEY (`wa_nouvelle_longueur_id_nouvelle_longueur`) REFERENCES `wa_nouvelle_longueur` (`id_nouvelle_longueur`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `wa_longueur_traitement`
+--
+ALTER TABLE `wa_longueur_traitement`
+  ADD CONSTRAINT `fk_wa_longueur_traitement_wa_new_trtmt_ask1` FOREIGN KEY (`wa_new_trtmt_ask_id_new_trtmt_ask`,`wa_new_trtmt_ask_wa_new_trtmt_id_new_trtmt`) REFERENCES `wa_new_trtmt_ask` (`id_new_trtmt_ask`, `wa_new_trtmt_id_new_trtmt`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Contraintes pour la table `wa_marque_commercial`
 --
 ALTER TABLE `wa_marque_commercial`
   ADD CONSTRAINT `fk_marque_commercial_WA_contenu_demande1` FOREIGN KEY (`WA_contenu_demande_id_contenu_demande`) REFERENCES `wa_contenu_demande` (`id_contenu_demande`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `wa_new_trtmt_ask`
+--
+ALTER TABLE `wa_new_trtmt_ask`
+  ADD CONSTRAINT `fk_wa_new_trtmt_ask_wa_new_trtmt1` FOREIGN KEY (`wa_new_trtmt_id_new_trtmt`) REFERENCES `wa_new_trtmt` (`id_new_trtmt`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `wa_traitement`

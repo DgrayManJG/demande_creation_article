@@ -5,16 +5,18 @@
 class Validationform extends CI_Controller
 {
 
-
   public function index()
 	{
-		//redirect(array('error', 'probleme'));
-    $this->validation();
+    if(isset($_POST['demandeur'])){
+      $this->validation();
+    } else {
+      redirect('formCodeArticle', 'refresh');
+    }
 	}
 
   public function validation(){
       $data = array();
-			//	Chargement de la bibliothèque
+			//Chargement de la bibliothèque
 			$this->load->library('form_validation');
       $this->validationCouleur($_POST);
       $this->validationAsseccoire($_POST);
@@ -62,7 +64,7 @@ class Validationform extends CI_Controller
       /********* data de la table WA_accessoires *********/
       $accessoire = $_POST['accessoire'];
 
-      /**** Initialisation du model contenu_demande_model.php ***/
+      /**** Initialisation du model contenu_demande_model.php ****/
       $this->load->model('contenu_demande_model', 'contenuDemande');
       $this->load->model('demande_model', 'demande');
       $this->load->model('traitement_model', 'traitement');
@@ -122,16 +124,16 @@ class Validationform extends CI_Controller
       if($resultatContenuDemande == 'true'){
         $data['alert'] = 'true';
         $data['contenu_alert'] = 'La requête d\'insertion a bien été enregistré';
-        $this->send_mail();
+        $this->send_mail($demandeur, $gamme_produit, $volume_mois, $essence, $profil, $motif_demande);
       } else {
         $data['alert'] = 'false';
         $data['contenu_alert'] = 'une erreur est survenu lors du traitement de la demande';
       }
 
-      $this->load->view('header-footer/header.php');
-	  	$this->load->view('formulaireArticle/formulaireArticle', $data);
+      $data['title'] = 'Creation code article';
+      $this->load->view('header-footer/header.php', $data);
+	  	$this->load->view('form/formCodeArticle/formulaire', $data);
     	$this->load->view('header-footer/footer.php');
-
 
 	}
 
@@ -229,6 +231,7 @@ class Validationform extends CI_Controller
     }
   }
 
+  /* !!!!!! pas utilisé */
   public function validationEtatTraitement($post){
     if(strlen($_POST['etat_traitement']) > 1){
 
@@ -236,40 +239,30 @@ class Validationform extends CI_Controller
       $data['contenu_alert'] = 'la champ etat_traitement ne dois pas excéder 1 caractére';
 
       $this->load->view('header-footer/header.php');
-	  	$this->load->view('formulaireArticle/formulaireArticle', $data);
+	  	$this->load->view('form/formCodeArticle/formulaire', $data);
     	$this->load->view('header-footer/footer.php');
     }
   }
 
-  public function send_mail(){
-		//$this->load->library('envoie_email');
-		//$this->envoie_email->send_mail();
-		//$this->envoie_email->hello();
-
-		$config = Array(
-										'protocol' => 'mail',
-										'mail_host' => 'ExchangeISB.isb.groupe-isb.fr',
-										'mail_port' => 25001,
-										'mail_user' => '',
-										'mail_pass' => '',
-										'mailtype'  => 'html',
-										'charset'   => 'utf-8',
+  public function send_mail($demandeur, $gamme_produit, $volume_mois, $essence, $profil, $motif_demande){
+    $config = Array(
+                    'protocol' => 'mail',
+                    'mail_host' => 'ExchangeISB.isb.groupe-isb.fr',
+                    'mail_port' => 25001,
+                    'mail_user' => '',
+                    'mail_pass' => '',
+                    'mailtype'  => 'html',
+                    'charset'   => 'utf-8',
                     'wrapchars' => 76,
                     'newline'   => '\r\n'
-								);
-
-		$this->load->library('email', $config);
-
-		$this->email->from('jimmy.guevel@groupe-isb.fr', 'Jimmy');
-		$this->email->to('jimmy.guevel@groupe-isb.fr');
-		//$this->email->cc('jimmy.guevel@groupe-isb.fr');
-
-		$this->email->subject('demande création article');
-    $this->email->message("salut");
+                );
+    $this->load->library('email', $config);
+    $email = $this->email;
 
 
-		$this->email->send();
+    $this->load->library('envoie_email');
 
+    $this->envoie_email->send_mail($email, $demandeur, $gamme_produit, $volume_mois, $essence, $profil, $motif_demande);
 	}
 
 

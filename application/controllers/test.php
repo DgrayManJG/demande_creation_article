@@ -7,17 +7,19 @@ class Test extends CI_Controller
 
 		//	Décommenter cette ligne pour charger le helper url
 		//$this->load->helper('url');
-	/*	$session_id 							= $this->session->userdata('session_id');
-		$adresse_ip               = $this->session->userdata('ip_address');
-		$user_agent_du_navigateur = $this->session->userdata('user_agent');
-		$derniere_visite          = $this->session->userdata('last_activity');
-		var_dump($adresse_ip);*/
+	  // $session_id 							= $this->session->userdata('session_id');
+		// $adresse_ip               = $this->session->userdata('ip_address');
+		// $user_agent_du_navigateur = $this->session->userdata('user_agent');
+		// $derniere_visite          = $this->session->userdata('last_activity');
+		// var_dump($adresse_ip);
 	}
 
 	public function index()
 	{
 		//redirect(array('error', 'probleme'));
-    $this->librairie_alphabet();
+    //$this->librairie_alphabet();
+		redirect('blog', 'refresh');
+
 	}
 
 	public function librairie_alphabet()
@@ -37,8 +39,10 @@ class Test extends CI_Controller
 		$data['alphabet'] = 'acegikmoqsuwybdfhjlnprtvxz';
 		$this->alphabet->changer_alphabet($data['alphabet']);
 
+		var_dump($data['alphabet']);
+
 		//	Appel de la méthode Load::view
-		$this->load->view('test/accueil', $data);
+	//	$this->load->view('test/accueil', $data);
 	}
 
 	public function exemple1()

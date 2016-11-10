@@ -52,3 +52,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['formCodeArticle'] = 'form/formCodeArticle/formulaire';
+$route['validationCodeArticle'] = 'form/formCodeArticle/validationform';
+
+$route['formNewLongueur'] = 'form/formNewLongueur/formulaire';
+$route['validationNewLongueur'] = 'form/formNewLongueur/validationform';
+
+$route['formNewTraitement'] = 'form/formNewTraitement/formulaire';
+$route['validationNewTraitement'] = 'form/formNewTraitement/validationform';

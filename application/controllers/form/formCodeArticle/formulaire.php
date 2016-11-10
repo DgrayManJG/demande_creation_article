@@ -9,8 +9,9 @@ class Formulaire extends CI_Controller {
 
 	public function form()
 	{
-    	$this->load->view('header-footer/header.php');
-	  	$this->load->view('formulaireArticle/formulaireArticle');
+		  $data['title'] = 'Creation code article';
+    	$this->load->view('header-footer/header.php', $data);
+	  	$this->load->view('form/formCodeArticle/formulaire');
     	$this->load->view('header-footer/footer.php');
 	}
 
@@ -35,7 +36,6 @@ class Formulaire extends CI_Controller {
 
 	public function getSousProduit()
 	{
-
 		$this->load->model('famille_model', 'famille');
 		$this->load->model('sous_famille_model', 'sous_famille');
 
@@ -53,7 +53,5 @@ class Formulaire extends CI_Controller {
 
 		echo json_encode($json);
 	}
-
-
 
 }

@@ -14,21 +14,24 @@
 
   <div class="container">
    <div class="page-header">
-      <h1>Formulaire création article</h1>
+      <h1>Demande de creation code article</h1>
+      <h3>Super famille Rabotés ou Sciés</h3>
     </div>
   </div>
-
 
 <div class="container">
   <!-- Name Section -->
     <div class="row">
         <div class="col-md-8 col-md-offset-1">
 
+          <div class="form-group">
+            <div class="alert alert-warning">
+              A compléter par le demandeur - sous reserve de validation marketing avant creation.
+            </div>
+          </div>
 
-          <form class="form-horizontal" role="form" method="post" action="<?php echo site_url('validationform'); ?>">
+          <form class="form-horizontal" role="form" method="post" action="<?php echo site_url('validationCodeArticle'); ?>">
             <fieldset>
-
-              <!-- Form Name -->
 
               <!-- Text input-->
               <div class="form-group">
@@ -151,7 +154,7 @@
 
               <script type="text/javascript">
                             $.ajax({
-                                url: 'formulaire/getProduit',
+                                url: 'form/formCodeArticle/formulaire/getProduit',
                                 dataType: 'json',
                                 success: function(json) {
                                   $('#libelle_famille').append('<option value="null"></option>');
@@ -161,8 +164,6 @@
                                 }
                             });
               </script>
-
-
 
                 <div class="libelle_sous_famille">
                   <div class="form-group">
@@ -175,7 +176,6 @@
                     </div>
                 </div>
 
-
                 <script type="text/javascript">
                   $('.libelle_sous_famille').hide();
                   $("select[name='libelle_famille']").change(function() {
@@ -185,7 +185,7 @@
                           } else {
                             $('#libelle_sous_famille').empty();
                               $.ajax({
-                                  url: 'formulaire/getSousProduit',
+                                  url: 'form/formCodeArticle/formulaire/getSousProduit',
                                   data:'LIBELLE='+ value,
                                   dataType: 'json',
                                   success: function(json) {
@@ -235,7 +235,7 @@
                   <div class="col-sm-4">
                     <input type="text" id="couleur" name="couleur" placeholder="couleur" class="form-control">
                   </div>
-                  <input type="button" id="add_couleur" value="Ajouter d'autre couleur"/>
+                  <input type="button" id="add_couleur" class="btn btn-info" value="Ajouter d'autre couleur"/>
               </div>
 
               <!-- AJOUTER COULEUR -->
@@ -464,7 +464,7 @@
               <div class="col-sm-4">
                 <input type="text" id="accessoire" name="accessoire" placeholder="accessoire" class="form-control">
               </div>
-              <input type="button" id="add_accessoire" value="Ajouter d'autre accessoire"/>
+              <input type="button" id="add_accessoire" class="btn btn-info" value="Ajouter d'autre accessoire"/>
             </div>
 
 
@@ -529,13 +529,10 @@
             </div>
 
 
-              <br>
+              <br/>
+              <br/>
               <div class="form-group">
-                <div class="col-sm-5 col-sm-offset-1">
-                  <div class="pull-right">
-                    <button type="submit" class="btn btn-primary">envoyé</button>
-                  </div>
-                </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">envoyer le formulaire</button>
               </div>
             </fieldset>
           </form>
