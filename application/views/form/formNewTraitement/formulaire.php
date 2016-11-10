@@ -43,17 +43,19 @@
               <div class="form-group">
                 <legend>Information sur le demandeur</legend>
                   <div class="col-sm-4">
+                    <label for="demandeur">demandeur:</label>
                     <input type="text" name="demandeur" id="demandeur" placeholder="demandeur" class="form-control">
                   </div>
                   <div class="col-sm-4">
+                    <label for="motif_demande">motif_demande:</label>
                     <input type="text" name="motif_demande" id="motif_demande" placeholder="motif_demande" class="form-control">
                   </div>
               </div>
 
-
               <div class="form-group">
                 <legend>Code article citis de reference non taitte</legend>
                   <div class="col-sm-4">
+                      <label for="code_article_citis">code_article_citis:</label>
                     <input type="text" id="code_article_citis" name="code_article_citis" placeholder="code_article_citis" class="form-control">
                   </div>
               </div>
@@ -61,31 +63,47 @@
               <div class="form-group">
                 <legend>Libelle article citis de reference</legend>
                 <div class="col-sm-4">
+                  <label for="libelle_article_citis">libelle_article_citis:</label>
                   <input type="text" id="libelle_article_citis" name="libelle_article_citis" placeholder="libelle_article_citis" class="form-control">
                 </div>
               </div>
 
 
               <!----------------------- nouveau traitement 1 ------------------------------------------>
-                <div class="form-group">
+              <div class="form-group">
                   <legend>Nouveau traitement demande</legend>
+                    <div class="col-sm-1">
+                      <label for="libelle">libelle:</label>
+                    </div>
                     <div class="col-sm-4">
                       <input type="text" name="libelle" id="libelle[]" placeholder="libelle traitement demande" class="form-control">
                     </div>
-                    <button id="add_longueur" class="btn btn-info">ajouter longueur</button>
-                </div>
+                  <button id="add_longueur" class="btn btn-info">ajouter longueur</button>
+              </div>
 
+              <br>
 
               <fieldset id="longueur">
                   <div class="form-group" >
-                        <div class="col-sm-3">
+                    <div class="col-sm-4">
+                      <label for="longueur_en_m">longueur_en_m:</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="ref_article_client">ref_article_client:</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="gencod_client">gencod_client:</label>
+                    </div>
+                        <div class="col-sm-4">
                           <input type="text" id="longueur_en_m" name="longueur_en_m[]" placeholder="longueur_en_m" class="form-control" required="requires">
                         </div>
                         <div class="col-sm-3">
                           <input type="text" id="ref_article_client" name="ref_article_client[]" placeholder="ref_article_client" class="form-control">
+
                         </div>
                         <div class="col-sm-3">
                           <input type="text" id="gencod_client" name="gencod_client[]" placeholder="gencod_client" class="form-control">
+
                         </div>
                         <div class="col-sm-1">
                           <button class="remove btn btn-danger">X</button>
@@ -96,31 +114,43 @@
                <script type="text/javascript">
 
                  $('#add_longueur').on('click', function() {
-                   $('#longueur').append('<div class="form-group" > <div class="col-sm-3"> <input type="text" id="longueur_en_m" name="longueur_en_m[]" placeholder="longueur_en_m" class="form-control" required="requires"></div><div class="col-sm-3"><input type="text" id="ref_article_client" name="ref_article_client[]" placeholder="ref_article_client" class="form-control"></div><div class="col-sm-3"><input type="text" id="gencod_client" name="gencod_client[]" placeholder="gencod_client" class="form-control"></div><div class="col-sm-1"><button class="remove btn btn-danger">X</button></div></div>');
+                   $('#longueur').append('<div class="form-group"> <div class="col-sm-4"><label for="longueur_en_m">longueur_en_m:</label></div><div class="col-sm-3"><label for="ref_article_client">ref_article_client:</label></div><div class="col-sm-2"><label for="gencod_client">gencod_client:</label></div><div class="col-sm-4"> <input type="text" id="longueur_en_m" name="longueur_en_m[]" placeholder="longueur_en_m" class="form-control" required="requires"></div><div class="col-sm-3"><input type="text" id="ref_article_client" name="ref_article_client[]" placeholder="ref_article_client" class="form-control"></div><div class="col-sm-3"><input type="text" id="gencod_client" name="gencod_client[]" placeholder="gencod_client" class="form-control"></div><div class="col-sm-1"><button class="remove btn btn-danger">X</button></div></div>');
                    return false; //prevent form submission
                  });
 
                  $('#longueur').on('click', '.remove', function() {
                    $(this).parent().parent().remove();
+                   $(this).remove_label.remove();
                    return false; //prevent form submission
                  });
-
                </script>
 
                <!----------------------- nouveau traitement 2 ------------------------------------------>
 
                <div class="form-group">
                  <legend>Nouveau traitement demande (facultatif)</legend>
+                 <div class="col-sm-1">
+                   <label for="libelle2">libelle2:</label>
+                 </div>
                    <div class="col-sm-4">
                      <input type="text" name="libelle2" id="libelle2[]" placeholder="libelle traitement demande" class="form-control">
                    </div>
                    <button id="add_longueur2" class="btn btn-info">ajouter longueur</button>
                </div>
 
-
+               <br>
              <fieldset id="longueur2">
-                 <div class="form-group" >
-                       <div class="col-sm-3">
+                       <div class="form-group" >
+                         <div class="col-sm-4">
+                           <label for="longueur_en_m">longueur_en_m:</label>
+                         </div>
+                         <div class="col-sm-3">
+                             <label for="ref_article_client">ref_article_client:</label>
+                         </div>
+                         <div class="col-sm-2">
+                             <label for="gencod_client">gencod_client:</label>
+                         </div>
+                       <div class="col-sm-4">
                          <input type="text" id="longueur_en_m" name="longueur_en_m2[]" placeholder="longueur_en_m" class="form-control">
                        </div>
                        <div class="col-sm-3">
@@ -138,7 +168,7 @@
               <script type="text/javascript">
 
                 $('#add_longueur2').on('click', function() {
-                  $('#longueur2').append('<div class="form-group" > <div class="col-sm-3"> <input type="text" id="longueur_en_m" name="longueur_en_m2[]" placeholder="longueur_en_m" class="form-control"></div><div class="col-sm-3"><input type="text" id="ref_article_client" name="ref_article_client2[]" placeholder="ref_article_client" class="form-control"></div><div class="col-sm-3"><input type="text" id="gencod_client" name="gencod_client2[]" placeholder="gencod_client" class="form-control"></div><div class="col-sm-1"><button class="remove btn btn-danger">X</button></div></div>');
+                  $('#longueur2').append('<div class="form-group" ><div class="col-sm-4"><label for="longueur_en_m">longueur_en_m:</label></div><div class="col-sm-3"><label for="ref_article_client">ref_article_client:</label></div><div class="col-sm-2"><label for="gencod_client">gencod_client:</label></div> <div class="col-sm-4"> <input type="text" id="longueur_en_m" name="longueur_en_m2[]" placeholder="longueur_en_m" class="form-control"></div><div class="col-sm-3"><input type="text" id="ref_article_client" name="ref_article_client2[]" placeholder="ref_article_client" class="form-control"></div><div class="col-sm-3"><input type="text" id="gencod_client" name="gencod_client2[]" placeholder="gencod_client" class="form-control"></div><div class="col-sm-1"><button class="remove btn btn-danger">X</button></div></div>');
                   return false; //prevent form submission
                 });
 
@@ -153,16 +183,28 @@
 
               <div class="form-group">
                 <legend>Nouveau traitement demande (facultatif)</legend>
+                <div class="col-sm-1">
+                  <label for="libelle3">libelle3:</label>
+                </div>
                   <div class="col-sm-4">
                     <input type="text" name="libelle3" id="libelle[]" placeholder="libelle traitement demande" class="form-control">
                   </div>
                   <button id="add_longueur3" class="btn btn-info">ajouter longueur</button>
               </div>
 
-
+              <br>
             <fieldset id="longueur3">
                 <div class="form-group" >
-                      <div class="col-sm-3">
+                  <div class="col-sm-4">
+                    <label for="longueur_en_m">longueur_en_m:</label>
+                  </div>
+                  <div class="col-sm-3">
+                      <label for="ref_article_client">ref_article_client:</label>
+                  </div>
+                  <div class="col-sm-2">
+                      <label for="gencod_client">gencod_client:</label>
+                  </div>
+                      <div class="col-sm-4">
                         <input type="text" id="longueur_en_m" name="longueur_en_m3[]" placeholder="longueur_en_m" class="form-control">
                       </div>
                       <div class="col-sm-3">
@@ -180,7 +222,7 @@
              <script type="text/javascript">
 
                $('#add_longueur3').on('click', function() {
-                 $('#longueur3').append('<div class="form-group" > <div class="col-sm-3"> <input type="text" id="longueur_en_m" name="longueur_en_m3[]" placeholder="longueur_en_m" class="form-control"></div><div class="col-sm-3"><input type="text" id="ref_article_client" name="ref_article_client3[]" placeholder="ref_article_client" class="form-control"></div><div class="col-sm-3"><input type="text" id="gencod_client" name="gencod_client3[]" placeholder="gencod_client" class="form-control"></div><div class="col-sm-1"><button class="remove btn btn-danger">X</button></div></div>');
+                 $('#longueur3').append('<div class="form-group" > <div class="col-sm-4"><label for="longueur_en_m">longueur_en_m:</label></div><div class="col-sm-3"><label for="ref_article_client">ref_article_client:</label></div><div class="col-sm-2"><label for="gencod_client">gencod_client:</label></div><div class="col-sm-4"> <input type="text" id="longueur_en_m" name="longueur_en_m3[]" placeholder="longueur_en_m" class="form-control"></div><div class="col-sm-3"><input type="text" id="ref_article_client" name="ref_article_client3[]" placeholder="ref_article_client" class="form-control"></div><div class="col-sm-3"><input type="text" id="gencod_client" name="gencod_client3[]" placeholder="gencod_client" class="form-control"></div><div class="col-sm-1"><button class="remove btn btn-danger">X</button></div></div>');
                  return false; //prevent form submission
                });
 

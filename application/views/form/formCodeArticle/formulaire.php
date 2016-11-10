@@ -12,11 +12,14 @@
   }
  ?>
 
+<div class="form-group">
+
   <div class="container">
    <div class="page-header">
       <h1>Demande de creation code article</h1>
       <h3>Super famille Rabotés ou Sciés</h3>
     </div>
+  </div>
   </div>
 
 <div class="container">
@@ -37,37 +40,41 @@
               <div class="form-group">
                 <legend>Information sur le demandeur</legend>
                   <div class="col-sm-4">
+                    <label for="demandeur">Demandeur:</label>
                     <input type="text" name="demandeur" id="demandeur" placeholder="demandeur" class="form-control">
                   </div>
                   <div class="col-sm-4">
+                    <label for="motif_demande">motif_demande:</label>
                     <input type="text" name="motif_demande" id="motif_demande" placeholder="motif_demande" class="form-control">
                   </div>
               </div>
 
-
               <div class="form-group">
                 <legend>produit détails</legend>
                   <div class="col-sm-4">
+                    <label for="gamme_produit">gamme_produit:</label>
                     <input type="text" id="gamme_produit" name="gamme_produit" placeholder="gamme_produit" class="form-control">
                   </div>
                   <div class="col-sm-4">
+                    <label for="volume_mois">volume_mois:</label>
                     <input type="text" id="volume_mois" name="volume_mois" placeholder="volume_mois" class="form-control">
                   </div>
                   <div class="col-sm-4">
+                    <label for="essence">essence:</label>
                     <input type="text" id="essence" name="essence" placeholder="essence" class="form-control">
                   </div>
               </div>
 
               <div class="form-group">
                 <div class="col-sm-4">
+                  <label for="profil">profil:</label>
                   <input type="text" id="profil" name="profil" placeholder="profil" class="form-control">
                 </div>
                 <div class="col-sm-4">
+                  <label for="etat_surface">etat_surface:</label>
                   <input type="text" id="etat_surface" name="etat_surface" placeholder="etat_surface" class="form-control">
                 </div>
               </div>
-
-
 
                 <div class="form-group">
                   <legend>conditionnement_botte</legend>
@@ -87,13 +94,46 @@
                    </div>
                </div>
 
+              <script type="text/javascript">
+                $('#conditionnement_botte').hide();
+                $("input[name='conditionnement_botte_radio']").change(function() {
+
+                        var value = $(this).val();
+                        var conditionnement = $('#conditionnement_botte');
+
+                        if (value=="oui") {
+                          conditionnement.show();
+                        } else {
+                          conditionnement.hide();
+                        }
+                });
+              </script>
+
+                  <!-- conditionnement palette -->
+                  <div class="form-group">
+                    <legend>conditionnement_palette</legend>
+                     <div class="col-md-9">
+                         <label class="radio-inline">
+                             <input type="radio" name="conditionnement_palette_radio" id="" value="oui" class="validate required radio">
+                             Oui
+                         </label>
+                         <label class="radio-inline">
+                             <input type="radio" name="conditionnement_palette_radio" id="" value="non" class="validate required radio" checked="true">
+                             Non
+                         </label>
+                         <span class="field-validation-valid help-block" data-valmsg-for="PhoneNumber" data-valmsg-replace="true"></span>
+                     </div>
+                     <div class="col-sm-4">
+                       <input type="text" id="conditionnement_palette" name="conditionnement_palette" placeholder="si oui, précissez" class="form-control">
+                     </div>
+                 </div>
 
                   <script type="text/javascript">
-                    $('#conditionnement_botte').hide();
-                    $("input[name='conditionnement_botte_radio']").change(function() {
+                    $('#conditionnement_palette').hide();
+                    $("input[name='conditionnement_palette_radio']").change(function() {
 
                             var value = $(this).val();
-                            var conditionnement = $('#conditionnement_botte');
+                            var conditionnement = $('#conditionnement_palette');
 
                             if (value=="oui") {
                               conditionnement.show();
@@ -101,53 +141,12 @@
                               conditionnement.hide();
                             }
                     });
-                      </script>
-
-                      <!-- conditionnement palette -->
-
-                      <div class="form-group">
-                        <legend>conditionnement_palette</legend>
-                         <div class="col-md-9">
-                             <label class="radio-inline">
-                                 <input type="radio" name="conditionnement_palette_radio" id="" value="oui" class="validate required radio">
-                                 Oui
-                             </label>
-                             <label class="radio-inline">
-                                 <input type="radio" name="conditionnement_palette_radio" id="" value="non" class="validate required radio" checked="true">
-                                 Non
-                             </label>
-                             <span class="field-validation-valid help-block" data-valmsg-for="PhoneNumber" data-valmsg-replace="true"></span>
-                         </div>
-                         <div class="col-sm-4">
-                           <input type="text" id="conditionnement_palette" name="conditionnement_palette" placeholder="si oui, précissez" class="form-control">
-                         </div>
-                     </div>
-
-
-                        <script type="text/javascript">
-                          $('#conditionnement_palette').hide();
-                          $("input[name='conditionnement_palette_radio']").change(function() {
-
-                                  var value = $(this).val();
-                                  var conditionnement = $('#conditionnement_palette');
-
-                                  if (value=="oui") {
-                                    conditionnement.show();
-                                  } else {
-                                    conditionnement.hide();
-                                  }
-                          });
-                            </script>
-
-
-
-
+                    </script>
 
               <div class="form-group">
                 <legend>famille cities</legend>
                 <div class="col-sm-4">
                   <select type="pContactMethod" id="libelle_famille" name="libelle_famille" placeholder="Contact Method" class="form-control">
-
                   </select>
                 </div>
               </div>
@@ -204,12 +203,15 @@
               <div class="form-group">
                 <legend>dimensions produits</legend>
                   <div class="col-sm-4">
+                    <label for="longueur_m">longueur_m:</label>
                     <input type="text" id="longueur_m" name="longueur_m" placeholder="longueur_m" class="form-control">
                   </div>
                   <div class="col-sm-4">
+                    <label for="largeur_mm">largeur_mm:</label>
                     <input type="text" id="largeur_mm" name="largeur_mm" placeholder="largeur_mm" class="form-control">
                   </div>
                   <div class="col-sm-4">
+                    <label for="epaisseur_mm">epaisseur_mm:</label>
                     <input type="text" id="epaisseur_mm" name="epaisseur_mm" placeholder="epaisseur_mm" class="form-control">
                   </div>
               </div>
@@ -219,12 +221,15 @@
               <div class="form-group">
                 <legend>traitement</legend>
                   <div class="col-sm-4">
+                    <label for="etat_traitement">etat_traitement:</label>
                     <input type="text" id="etat_traitement" name="etat_traitement" maxlength="1" placeholder="etat_traitement" class="form-control">
                   </div>
                   <div class="col-sm-4">
+                    <label for="classe_traitement">classe_traitement:</label>
                     <input type="text" id="classe_traitement" name="classe_traitement" placeholder="classe_traitement" class="form-control">
                   </div>
                   <div class="col-sm-4">
+                    <label for="couleur_traitement">couleur_traitement:</label>
                     <input type="text" id="couleur_traitement" name="couleur_traitement" placeholder="couleur_traitement" class="form-control">
                   </div>
               </div>
@@ -232,6 +237,9 @@
 
               <div class="form-group">
                 <legend>couleur souhaité</legend>
+                <div class="col-sm-1">
+                  <label for="couleur">couleur:</label>
+                </div>
                   <div class="col-sm-4">
                     <input type="text" id="couleur" name="couleur" placeholder="couleur" class="form-control">
                   </div>
@@ -242,14 +250,17 @@
               <div class="form-group" id="suplement_couleur">
                 <h4><strong>d'autre couleur</strong></h4>
                   <div class="col-sm-4">
+                    <label for="couleur2">couleur2:</label>
                     <input type="text" id="couleur2" name="couleur2" placeholder="couleur2" class="form-control">
                   </div>
 
                   <div class="col-sm-4">
+                    <label for="couleur3">couleur3:</label>
                     <input type="text" id="couleur3" name="couleur3" placeholder="couleur3" class="form-control">
                   </div>
 
                   <div class="col-sm-4">
+                    <label for="couleur4">couleur4:</label>
                     <input type="text" id="couleur4" name="couleur4" placeholder="couleur4" class="form-control">
                   </div>
               </div>
@@ -269,9 +280,11 @@
               <div class="form-group">
                 <legend>unité vente & facture</legend>
                   <div class="col-sm-4">
+                    <label for="unite_vente">unite_vente:</label>
                     <input type="text" id="unite_vente" name="unite_vente" placeholder="unite_vente" class="form-control">
                   </div>
                   <div class="col-sm-4">
+                    <label for="unite_facture">unite_facture:</label>
                     <input type="text" id="unite_facture" name="unite_facture" placeholder="unite_facture" class="form-control">
                   </div>
               </div>
@@ -461,6 +474,9 @@
 
             <div class="form-group">
               <legend>Accessoires souhaités</legend>
+              <div class="col-sm-2">
+                <label for="accessoire">accessoire:</label>
+              </div>
               <div class="col-sm-4">
                 <input type="text" id="accessoire" name="accessoire" placeholder="accessoire" class="form-control">
               </div>
@@ -472,14 +488,15 @@
             <div class="form-group" id="suplement_accessoire">
               <h4><strong>d'autre accessoire</strong></h4>
                 <div class="col-sm-4">
+                  <label for="accessoire2">accessoire2:</label>
                   <input type="text" id="accessoire2" name="accessoire2" placeholder="accessoire2" class="form-control">
                 </div>
-
                 <div class="col-sm-4">
+                  <label for="accessoire3">accessoire3:</label>
                   <input type="text" id="accessoire3" name="accessoire3" placeholder="accessoire3" class="form-control">
                 </div>
-
                 <div class="col-sm-4">
+                  <label for="accessoire4">accessoire4:</label>
                   <input type="text" id="accessoire4" name="accessoire4" placeholder="accessoire4" class="form-control">
                 </div>
             </div>
