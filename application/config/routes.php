@@ -53,6 +53,7 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+/** route initialisé pour les formulaires **/
 $route['formCodeArticle'] = 'form/formCodeArticle/formulaire';
 $route['validationCodeArticle'] = 'form/formCodeArticle/validationform';
 
@@ -61,3 +62,13 @@ $route['validationNewLongueur'] = 'form/formNewLongueur/validationform';
 
 $route['formNewTraitement'] = 'form/formNewTraitement/formulaire';
 $route['validationNewTraitement'] = 'form/formNewTraitement/validationform';
+
+/** route initialisé pour les données des formulaire **/
+$route['dataCodeArticle'] = 'formData/dataCodeArticle/data';
+$route['dataDetailCodeArticle/(:num)'] = 'formData/dataCodeArticle/dataDetail/index/$1';
+
+$route['dataNewLongueur'] = 'formData/dataNewLongueur/data';
+$route['dataDetailNewLongueur/(:num)'] = 'formData/dataNewLongueur/dataDetail/index/$1';
+
+$route['dataNewTraitement'] = 'formData/dataNewTraitement/data';
+$route['dataDetailNewTraitement/(:num)'] = 'formData/dataNewTraitement/dataDetail/index/$1';

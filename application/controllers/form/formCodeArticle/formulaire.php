@@ -17,7 +17,6 @@ class Formulaire extends CI_Controller {
 
 	public function getProduit()
 	{
-
 		$this->load->model('famille_model', 'famille');
 		$resultat = $this->famille->get_famille();
 		$json = array();

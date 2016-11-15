@@ -28,4 +28,10 @@ class Longueur_traitement_model extends CI_Model
 
   }
 
+  public function get_longueur_traitement_by_id_new_trtmt($id_new_trtmt){
+      $query = $this->db->query("SELECT * FROM ".$this->table." WHERE wa_new_trtmt_ask_wa_new_trtmt_id_new_trtmt =".$this->db->escape($id_new_trtmt)."");
+
+      return $query->result();
+  }
+
 }

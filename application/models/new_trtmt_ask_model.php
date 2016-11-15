@@ -34,4 +34,10 @@ class New_trtmt_ask_model extends CI_Model
               ->result();
   }
 
+  public function get_new_trtmt_ask_by_id_new_trtmt($id_new_trtmt){
+      $query = $this->db->query("SELECT * FROM ".$this->table." WHERE wa_new_trtmt_id_new_trtmt =".$this->db->escape($id_new_trtmt)."");
+
+      return $query->result();
+  }
+
 }

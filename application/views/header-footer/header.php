@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
   <link rel="stylesheet" href="<?= css_url('style'); ?>" media="screen" title="no title">
+  <link rel="stylesheet" href="<?= css_url('simple-sidebar'); ?>" media="screen" title="no title">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
@@ -21,3 +22,38 @@
   <div class="logo_isb">
     <img src="<?= img_url('logo_isb.jpg');?>" height="150" width="190">
   </div>
+
+  <div id="wrapper">
+    <!-- Page Content -->
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Navigation
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= site_url('formCodeArticle'); ?>">formulaire code article</a>
+                </li>
+                <li>
+                    <a href="<?= site_url('formNewLongueur'); ?>">formulaire nouvelle longueur</a>
+                </li>
+                <li>
+                    <a href="<?= site_url('formNewTraitement'); ?>">formulaire nouveau traitement</a>
+                </li>
+                <li>
+                    <a href="<?= site_url('dataCodeArticle'); ?>">data code article</a>
+                </li>
+                <li>
+                    <a href="<?= site_url('dataNewLongueur'); ?>">data nouvelle longueur</a>
+                </li>
+                <li>
+                    <a href="<?= site_url('dataNewTraitement'); ?>">data nouveau traitement</a>
+                </li>
+            </ul>
+        </div>
+
+
+       <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Afficher/cacher le menu</a>

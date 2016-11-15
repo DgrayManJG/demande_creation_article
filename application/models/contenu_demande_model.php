@@ -6,7 +6,9 @@ class Contenu_demande_model extends CI_Model
   protected $table = "WA_contenu_demande";
 
 	public function get_contenu_demande(){
+      $query = $this->db->query("SELECT * FROM WA_contenu_demande");
 
+      return $query->result();
 	}
 
   public function add_contenu_demande($gamme_produit, $volume_mois, $essence, $profil,
@@ -51,13 +53,12 @@ class Contenu_demande_model extends CI_Model
                 ->limit('1','0')
                 ->get()
                 ->result();
-
   }
 
+  public function get_contenu_demande_by_id($idContenuDemande){
+      $query = $this->db->query("SELECT * FROM WA_contenu_demande WHERE id_contenu_demande=".$this->db->escape($idContenuDemande)."");
 
-
-
-
-
+      return $query->result();
+  }
 
 }

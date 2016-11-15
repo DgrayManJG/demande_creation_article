@@ -20,7 +20,7 @@
       <h3>Super famille Rabotés ou Sciés</h3>
     </div>
   </div>
-  </div>
+</div>
 
 <div class="container">
   <!-- Name Section -->
@@ -288,8 +288,6 @@
                     <input type="text" id="unite_facture" name="unite_facture" placeholder="unite_facture" class="form-control">
                   </div>
               </div>
-
-
 
               <div class="form-group">
                 <legend>marque commerciale</legend>

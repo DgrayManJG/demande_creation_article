@@ -6,13 +6,16 @@ class Nouvelle_longueur_model extends CI_Model
   protected $table = "wa_nouvelle_longueur";
 
 	public function get_nouvelle_longueur(){
+    $query = $this->db->query("SELECT * FROM wa_nouvelle_longueur");
 
+    return $query->result();
 	}
 
   public function add_nouvelle_longueur($demandeur, $motif_demande, $code_article_citis, $libelle_article_citis){
 
     $this->db->set('demandeur',  $demandeur);
     $this->db->set('motif_demande',   $motif_demande);
+    $this->db->set('date_demande',  'NOW()', false);
     $this->db->set('code_article_citis', $code_article_citis);
     $this->db->set('libelle_article_citis',  $libelle_article_citis);
 
@@ -34,6 +37,12 @@ class Nouvelle_longueur_model extends CI_Model
               ->limit('1','0')
               ->get()
               ->result();
+  }
+
+  public function get_nouvelle_longueur_by_id($id_nouvelle_longueur){
+      $query = $this->db->query("SELECT * FROM wa_nouvelle_longueur WHERE id_nouvelle_longueur=".$this->db->escape($id_nouvelle_longueur)."");
+
+      return $query->result();
   }
 
 }

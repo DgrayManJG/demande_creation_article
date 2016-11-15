@@ -31,3 +31,11 @@ if ( ! function_exists('img'))
 		return '<img src="' . img_url($nom) . '" alt="' . $alt . '" />';
 	}
 }
+
+if ( ! function_exists('font-awesome'))
+{
+	function fontAwesome_url()
+	{
+		return base_url() . 'assets/font-awesome-4.7.0/css/font-awesome.min.css';
+	}
+}

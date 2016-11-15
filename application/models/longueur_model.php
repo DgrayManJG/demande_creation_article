@@ -25,4 +25,10 @@ class Longueur_model extends CI_Model
 
   }
 
+  public function get_longueur_by_id_nouvelle_longueur($id_nouvelle_longueur){
+      $query = $this->db->query("SELECT * FROM ".$this->table." WHERE wa_nouvelle_longueur_id_nouvelle_longueur =".$this->db->escape($id_nouvelle_longueur)."");
+
+      return $query->result();
+  }
+
 }

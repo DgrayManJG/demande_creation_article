@@ -28,4 +28,10 @@ class Dimensions_model extends CI_Model
 
   }
 
+  public function get_dimensions_by_id_contenu_demande($idContenuDemande){
+      $query = $this->db->query("SELECT * FROM ".$this->table." WHERE WA_contenu_demande_id_contenu_demande =".$this->db->escape($idContenuDemande)."");
+
+      return $query->result();
+  }
+
 }

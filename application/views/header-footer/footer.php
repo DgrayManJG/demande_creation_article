@@ -1,12 +1,27 @@
+<!-- /#sidebar-wrapper -->
 
+
+<!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+    });
+    </script>
     <br/>
     <br/>
-    <footer class="footer">
-         <div class="container">
-           <p class="text-muted">GROUPE-ISB</p>
-         </div>
-    </footer>
-
 
   </body>
+
+  <footer class="footer">
+       <div class="container">
+            <p class="text-muted"></p>
+       </div>
+  </footer>
+
 </html>

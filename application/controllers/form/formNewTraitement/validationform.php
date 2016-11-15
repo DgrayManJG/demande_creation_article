@@ -106,6 +106,7 @@ class Validationform extends CI_Controller
 
     $data['title'] = 'Creation nouveau traitement';
     $this->load->view('header-footer/header.php', $data);
+    $this->load->view('form/formNewTraitement/formulaire');
     $this->load->view('header-footer/footer.php');
 
 	}
