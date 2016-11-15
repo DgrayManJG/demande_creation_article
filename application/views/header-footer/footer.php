@@ -1,7 +1,4 @@
-<!-- /#sidebar-wrapper -->
 
-
-<!-- /#page-content-wrapper -->
 
     </div>
     <!-- /#wrapper -->

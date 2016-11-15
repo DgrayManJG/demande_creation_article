@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.0.9
 -- http://www.phpmyadmin.net
 --
--- Client :  127.0.0.1
--- Généré le :  Mer 09 Novembre 2016 à 10:43
--- Version du serveur :  10.1.16-MariaDB
--- Version de PHP :  5.6.24
+-- Client: localhost
+-- Généré le: Mar 15 Novembre 2016 à 19:10
+-- Version du serveur: 5.5.45-log
+-- Version de PHP: 5.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,10 +14,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `demande_creation_article`
+-- Base de données: `demande_creation_article`
 --
 
 -- --------------------------------------------------------
@@ -26,11 +26,23 @@ SET time_zone = "+00:00";
 -- Structure de la table `wa_accessoires`
 --
 
-CREATE TABLE `wa_accessoires` (
-  `id_accessoire` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `wa_accessoires` (
+  `id_accessoire` int(11) NOT NULL AUTO_INCREMENT,
   `accessoire` varchar(45) DEFAULT NULL,
-  `WA_contenu_demande_id_contenu_demande` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `WA_contenu_demande_id_contenu_demande` int(11) NOT NULL,
+  PRIMARY KEY (`id_accessoire`,`WA_contenu_demande_id_contenu_demande`),
+  KEY `fk_WA_accessoires_WA_contenu_demande1_idx` (`WA_contenu_demande_id_contenu_demande`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=126 ;
+
+--
+-- Contenu de la table `wa_accessoires`
+--
+
+INSERT INTO `wa_accessoires` (`id_accessoire`, `accessoire`, `WA_contenu_demande_id_contenu_demande`) VALUES
+(122, '', 80),
+(123, '', 81),
+(124, 'poutre', 82),
+(125, 'sabot', 82);
 
 -- --------------------------------------------------------
 
@@ -38,8 +50,8 @@ CREATE TABLE `wa_accessoires` (
 -- Structure de la table `wa_contenu_demande`
 --
 
-CREATE TABLE `wa_contenu_demande` (
-  `id_contenu_demande` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `wa_contenu_demande` (
+  `id_contenu_demande` int(11) NOT NULL AUTO_INCREMENT,
   `gamme_produit` varchar(150) DEFAULT NULL,
   `volume_mois` int(11) DEFAULT NULL,
   `essence` varchar(45) DEFAULT NULL,
@@ -55,8 +67,18 @@ CREATE TABLE `wa_contenu_demande` (
   `etiquette_botte` varchar(45) DEFAULT NULL COMMENT 'si réponse non dans le traitement le champs deviens null sinon on remplis le champs\n\nchoix étiquette = MDD, CARIB, SILVERWOOD, NEUTRE',
   `etiquette_gencod` varchar(200) DEFAULT NULL COMMENT 'si réponse non dans le traitement le champs deviens null sinon on remplis le champs\n\nchoix étiquette = libres, imposés par l''enseigne - Gencod à préciser',
   `normes_environnementales` varchar(45) DEFAULT NULL COMMENT 'defalut : FCS IMPOSÉ, PEFC IMPOSÉ, PEFC ou FSC seloon dispo',
-  `marquage_ce` varchar(45) DEFAULT NULL COMMENT 'oui ou non'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `marquage_ce` varchar(45) DEFAULT NULL COMMENT 'oui ou non',
+  PRIMARY KEY (`id_contenu_demande`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=83 ;
+
+--
+-- Contenu de la table `wa_contenu_demande`
+--
+
+INSERT INTO `wa_contenu_demande` (`id_contenu_demande`, `gamme_produit`, `volume_mois`, `essence`, `profil`, `etat_surface`, `conditionnement_botte`, `conditionnement_palette`, `libelle_famille`, `libelle_sous_famille`, `unite_vente`, `unite_facture`, `produit_spec_client`, `etiquette_botte`, `etiquette_gencod`, `normes_environnementales`, `marquage_ce`) VALUES
+(80, 'bois ', 50, '', NULL, 'neuf', 'non', 'non', 'CLINS - CB', 'BARDAGES BRUTS PROMO - 269', '', '', 'non', 'non', 'non', 'FSC IMPOSÉ', 'non'),
+(81, 'sapin', 150, '', NULL, '', 'non', 'non', 'BANDEAUX - BA', 'PLANCHES DE RIVE PEINTES - 302', '', '', 'non', 'non', 'non', 'PEFC ou FSC selon dispo', 'non'),
+(82, 'peuplier', 50, '40', NULL, 'neuf', 'blabla', 'blabla', 'ECO MOBILIER - EM', 'ECO MOBILIER - 521', '5000', '5001', 'le goff', 'SILVERWOOD', 'libres', 'PEFC IMPOSÉ', 'oui');
 
 -- --------------------------------------------------------
 
@@ -64,11 +86,24 @@ CREATE TABLE `wa_contenu_demande` (
 -- Structure de la table `wa_couleur`
 --
 
-CREATE TABLE `wa_couleur` (
-  `id_couleur` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `wa_couleur` (
+  `id_couleur` int(11) NOT NULL AUTO_INCREMENT,
   `couleur` varchar(45) DEFAULT NULL,
-  `WA_contenu_demande_id_contenu_demande` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `WA_contenu_demande_id_contenu_demande` int(11) NOT NULL,
+  PRIMARY KEY (`id_couleur`,`WA_contenu_demande_id_contenu_demande`),
+  KEY `fk_WA_couleur_WA_contenu_demande1_idx` (`WA_contenu_demande_id_contenu_demande`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=89 ;
+
+--
+-- Contenu de la table `wa_couleur`
+--
+
+INSERT INTO `wa_couleur` (`id_couleur`, `couleur`, `WA_contenu_demande_id_contenu_demande`) VALUES
+(84, '', 80),
+(85, '', 81),
+(86, 'blanc', 82),
+(87, 'noir', 82),
+(88, 'rose', 82);
 
 -- --------------------------------------------------------
 
@@ -76,13 +111,24 @@ CREATE TABLE `wa_couleur` (
 -- Structure de la table `wa_demande`
 --
 
-CREATE TABLE `wa_demande` (
-  `id_demande` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `wa_demande` (
+  `id_demande` int(11) NOT NULL AUTO_INCREMENT,
   `demandeur` varchar(150) DEFAULT NULL,
   `date_demande` date DEFAULT NULL,
   `motif_demande` varchar(150) DEFAULT NULL,
-  `WA_contenu_demande_id_contenu_demande` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `WA_contenu_demande_id_contenu_demande` int(11) NOT NULL,
+  PRIMARY KEY (`id_demande`,`WA_contenu_demande_id_contenu_demande`),
+  KEY `fk_WA_demande_WA_contenu_demande1_idx` (`WA_contenu_demande_id_contenu_demande`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=83 ;
+
+--
+-- Contenu de la table `wa_demande`
+--
+
+INSERT INTO `wa_demande` (`id_demande`, `demandeur`, `date_demande`, `motif_demande`, `WA_contenu_demande_id_contenu_demande`) VALUES
+(80, 'jimmy', '2016-11-14', '', 80),
+(81, 'jimmy', '2016-11-14', '', 81),
+(82, 'jimmy', '2016-11-14', 'blabla', 82);
 
 -- --------------------------------------------------------
 
@@ -90,13 +136,24 @@ CREATE TABLE `wa_demande` (
 -- Structure de la table `wa_dimensions`
 --
 
-CREATE TABLE `wa_dimensions` (
-  `id_dimensions` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `wa_dimensions` (
+  `id_dimensions` int(11) NOT NULL AUTO_INCREMENT,
   `longueur_m` varchar(45) DEFAULT NULL,
   `largeur_mm` varchar(45) DEFAULT NULL,
   `epaisseur_mm` varchar(45) DEFAULT NULL,
-  `WA_contenu_demande_id_contenu_demande` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `WA_contenu_demande_id_contenu_demande` int(11) NOT NULL,
+  PRIMARY KEY (`id_dimensions`,`WA_contenu_demande_id_contenu_demande`),
+  KEY `fk_WA_dimensions_WA_contenu_demande_idx` (`WA_contenu_demande_id_contenu_demande`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=83 ;
+
+--
+-- Contenu de la table `wa_dimensions`
+--
+
+INSERT INTO `wa_dimensions` (`id_dimensions`, `longueur_m`, `largeur_mm`, `epaisseur_mm`, `WA_contenu_demande_id_contenu_demande`) VALUES
+(80, '', '', '', 80),
+(81, '', '', '', 81),
+(82, '50', '40', '70', 82);
 
 -- --------------------------------------------------------
 
@@ -104,12 +161,13 @@ CREATE TABLE `wa_dimensions` (
 -- Structure de la table `wa_famille`
 --
 
-CREATE TABLE `wa_famille` (
-  `id_famille` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `wa_famille` (
+  `id_famille` int(11) NOT NULL AUTO_INCREMENT,
   `CODE` varchar(20) NOT NULL,
   `LIBELLE` varchar(100) NOT NULL,
-  `persistenceVersion` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `persistenceVersion` int(11) NOT NULL,
+  PRIMARY KEY (`id_famille`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
 
 --
 -- Contenu de la table `wa_famille`
@@ -165,13 +223,28 @@ INSERT INTO `wa_famille` (`id_famille`, `CODE`, `LIBELLE`, `persistenceVersion`)
 -- Structure de la table `wa_longueur`
 --
 
-CREATE TABLE `wa_longueur` (
-  `id_longueur` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `wa_longueur` (
+  `id_longueur` int(11) NOT NULL AUTO_INCREMENT,
   `longueur_en_m` varchar(150) DEFAULT NULL,
   `ref_article_client` varchar(150) DEFAULT NULL,
   `gencod_client` varchar(150) DEFAULT NULL,
-  `wa_nouvelle_longueur_id_nouvelle_longueur` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `wa_nouvelle_longueur_id_nouvelle_longueur` int(11) NOT NULL,
+  PRIMARY KEY (`id_longueur`,`wa_nouvelle_longueur_id_nouvelle_longueur`),
+  KEY `fk_wa_longueur_wa_nouvelle_longueur1_idx` (`wa_nouvelle_longueur_id_nouvelle_longueur`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+
+--
+-- Contenu de la table `wa_longueur`
+--
+
+INSERT INTO `wa_longueur` (`id_longueur`, `longueur_en_m`, `ref_article_client`, `gencod_client`, `wa_nouvelle_longueur_id_nouvelle_longueur`) VALUES
+(10, '458', 'KFIE774', 'HFEI8789', 5),
+(11, '454', 'J9OFE', 'JN3OI904', 5),
+(12, '45', 'JNO83U', 'FOI3OF', 6),
+(13, '45', 'JHR032', 'HGR873', 7),
+(14, '1000', 'JF903', 'dn3983', 7),
+(15, '458', 'FDJ393', 'JNF03', 7),
+(16, '546', 'FK39°3', 'JF038', 7);
 
 -- --------------------------------------------------------
 
@@ -179,14 +252,31 @@ CREATE TABLE `wa_longueur` (
 -- Structure de la table `wa_longueur_traitement`
 --
 
-CREATE TABLE `wa_longueur_traitement` (
-  `id_longueur_traitement` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `wa_longueur_traitement` (
+  `id_longueur_traitement` int(11) NOT NULL AUTO_INCREMENT,
   `longueur_en_m` varchar(150) DEFAULT NULL,
   `ref_article_client` varchar(150) DEFAULT NULL,
   `gencod_client` varchar(150) DEFAULT NULL,
   `wa_new_trtmt_ask_id_new_trtmt_ask` int(11) NOT NULL,
-  `wa_new_trtmt_ask_wa_new_trtmt_id_new_trtmt` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `wa_new_trtmt_ask_wa_new_trtmt_id_new_trtmt` int(11) NOT NULL,
+  PRIMARY KEY (`id_longueur_traitement`,`wa_new_trtmt_ask_id_new_trtmt_ask`,`wa_new_trtmt_ask_wa_new_trtmt_id_new_trtmt`),
+  KEY `fk_wa_longueur_traitement_wa_new_trtmt_ask1_idx` (`wa_new_trtmt_ask_id_new_trtmt_ask`,`wa_new_trtmt_ask_wa_new_trtmt_id_new_trtmt`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48 ;
+
+--
+-- Contenu de la table `wa_longueur_traitement`
+--
+
+INSERT INTO `wa_longueur_traitement` (`id_longueur_traitement`, `longueur_en_m`, `ref_article_client`, `gencod_client`, `wa_new_trtmt_ask_id_new_trtmt_ask`, `wa_new_trtmt_ask_wa_new_trtmt_id_new_trtmt`) VALUES
+(39, '456', 'JOF83', 'JFD03', 26, 20),
+(40, '478', 'FOEJ', 'OFIJE', 26, 20),
+(41, '278', 'NF39F3', 'F03F3F', 27, 20),
+(42, '78', 'JFPOEI3', 'FJOEI03', 27, 20),
+(43, '54', 'FEJOIFDE', 'FPOE', 28, 20),
+(44, '78', 'foJHEO', 'JHFOUEJ', 28, 20),
+(45, '21', 'JFO3', 'FJ390', 29, 21),
+(46, '16', 'F3.IOF8O3', 'F3UFR3', 30, 21),
+(47, '89', 'FOKJHEIU', 'HFD983', 30, 21);
 
 -- --------------------------------------------------------
 
@@ -194,13 +284,24 @@ CREATE TABLE `wa_longueur_traitement` (
 -- Structure de la table `wa_marque_commercial`
 --
 
-CREATE TABLE `wa_marque_commercial` (
-  `id_marque_commercial` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `wa_marque_commercial` (
+  `id_marque_commercial` int(11) NOT NULL AUTO_INCREMENT,
   `marque_commercial` varchar(45) DEFAULT NULL,
   `mdd` varchar(150) DEFAULT NULL,
   `cnuf` varchar(150) DEFAULT NULL,
-  `WA_contenu_demande_id_contenu_demande` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `WA_contenu_demande_id_contenu_demande` int(11) NOT NULL,
+  PRIMARY KEY (`id_marque_commercial`,`WA_contenu_demande_id_contenu_demande`),
+  KEY `fk_marque_commercial_WA_contenu_demande1_idx` (`WA_contenu_demande_id_contenu_demande`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=83 ;
+
+--
+-- Contenu de la table `wa_marque_commercial`
+--
+
+INSERT INTO `wa_marque_commercial` (`id_marque_commercial`, `marque_commercial`, `mdd`, `cnuf`, `WA_contenu_demande_id_contenu_demande`) VALUES
+(80, 'marque commerciale', '', '', 80),
+(81, 'marque commerciale', '', '', 81),
+(82, 'NEUTRE', '', '', 82);
 
 -- --------------------------------------------------------
 
@@ -208,14 +309,23 @@ CREATE TABLE `wa_marque_commercial` (
 -- Structure de la table `wa_new_trtmt`
 --
 
-CREATE TABLE `wa_new_trtmt` (
-  `id_new_trtmt` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `wa_new_trtmt` (
+  `id_new_trtmt` int(11) NOT NULL AUTO_INCREMENT,
   `demandeur` varchar(100) DEFAULT NULL,
   `date_demande` date DEFAULT NULL,
   `motif_demande` varchar(200) DEFAULT NULL,
   `code_article_citis` varchar(150) DEFAULT NULL,
-  `libelle_article_citis` varchar(150) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `libelle_article_citis` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`id_new_trtmt`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+
+--
+-- Contenu de la table `wa_new_trtmt`
+--
+
+INSERT INTO `wa_new_trtmt` (`id_new_trtmt`, `demandeur`, `date_demande`, `motif_demande`, `code_article_citis`, `libelle_article_citis`) VALUES
+(20, 'Jimmy', '2016-11-15', 'Blabla', 'saucisson', 'saucisson'),
+(21, 'Sylvain', '2016-11-15', 'blabla', 'FJ390', 'F938HF');
 
 -- --------------------------------------------------------
 
@@ -223,11 +333,24 @@ CREATE TABLE `wa_new_trtmt` (
 -- Structure de la table `wa_new_trtmt_ask`
 --
 
-CREATE TABLE `wa_new_trtmt_ask` (
-  `id_new_trtmt_ask` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `wa_new_trtmt_ask` (
+  `id_new_trtmt_ask` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(45) DEFAULT NULL,
-  `wa_new_trtmt_id_new_trtmt` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `wa_new_trtmt_id_new_trtmt` int(11) NOT NULL,
+  PRIMARY KEY (`id_new_trtmt_ask`,`wa_new_trtmt_id_new_trtmt`),
+  KEY `fk_wa_new_trtmt_ask_wa_new_trtmt1_idx` (`wa_new_trtmt_id_new_trtmt`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+
+--
+-- Contenu de la table `wa_new_trtmt_ask`
+--
+
+INSERT INTO `wa_new_trtmt_ask` (`id_new_trtmt_ask`, `libelle`, `wa_new_trtmt_id_new_trtmt`) VALUES
+(26, 'traitement 1', 20),
+(27, 'traitement 2', 20),
+(28, 'traitement 3', 20),
+(29, 'T1', 21),
+(30, 'T2', 21);
 
 -- --------------------------------------------------------
 
@@ -235,14 +358,24 @@ CREATE TABLE `wa_new_trtmt_ask` (
 -- Structure de la table `wa_nouvelle_longueur`
 --
 
-CREATE TABLE `wa_nouvelle_longueur` (
-  `id_nouvelle_longueur` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `wa_nouvelle_longueur` (
+  `id_nouvelle_longueur` int(11) NOT NULL AUTO_INCREMENT,
   `demandeur` varchar(100) DEFAULT NULL,
   `date_demande` date DEFAULT NULL,
   `motif_demande` varchar(200) DEFAULT NULL,
   `code_article_citis` varchar(150) DEFAULT NULL,
-  `libelle_article_citis` varchar(150) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `libelle_article_citis` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`id_nouvelle_longueur`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Contenu de la table `wa_nouvelle_longueur`
+--
+
+INSERT INTO `wa_nouvelle_longueur` (`id_nouvelle_longueur`, `demandeur`, `date_demande`, `motif_demande`, `code_article_citis`, `libelle_article_citis`) VALUES
+(5, 'jimmy', NULL, 'blabla', 'HOEM589', 'banane'),
+(6, 'jimmy', '2016-11-15', 'blabla', 'banane', 'banane martinique'),
+(7, 'jimmy', '2016-11-15', 'blabla', 'HI93JH', 'FJFD39');
 
 -- --------------------------------------------------------
 
@@ -250,14 +383,15 @@ CREATE TABLE `wa_nouvelle_longueur` (
 -- Structure de la table `wa_sous_famille`
 --
 
-CREATE TABLE `wa_sous_famille` (
-  `id_sous_famille` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `wa_sous_famille` (
+  `id_sous_famille` int(11) NOT NULL AUTO_INCREMENT,
   `CODE` varchar(20) NOT NULL,
   `LIBELLE` varchar(100) NOT NULL,
   `persistenceVersion` int(11) NOT NULL,
   `WA_famille_id_famille` int(11) NOT NULL,
-  `listeWA_sous_famille_ORDER` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `listeWA_sous_famille_ORDER` int(11) NOT NULL,
+  PRIMARY KEY (`id_sous_famille`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=305 ;
 
 --
 -- Contenu de la table `wa_sous_famille`
@@ -575,185 +709,25 @@ INSERT INTO `wa_sous_famille` (`id_sous_famille`, `CODE`, `LIBELLE`, `persistenc
 -- Structure de la table `wa_traitement`
 --
 
-CREATE TABLE `wa_traitement` (
-  `id_traitement` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `wa_traitement` (
+  `id_traitement` int(11) NOT NULL AUTO_INCREMENT,
   `etat_traitement` char(1) DEFAULT NULL,
   `classe_traitement` varchar(45) DEFAULT NULL,
   `couleur_traitement` varchar(45) DEFAULT NULL,
-  `WA_contenu_demande_id_contenu_demande` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `WA_contenu_demande_id_contenu_demande` int(11) NOT NULL,
+  PRIMARY KEY (`id_traitement`,`WA_contenu_demande_id_contenu_demande`),
+  KEY `fk_WA_traitement_WA_contenu_demande1_idx` (`WA_contenu_demande_id_contenu_demande`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=83 ;
 
 --
--- Index pour les tables exportées
+-- Contenu de la table `wa_traitement`
 --
 
---
--- Index pour la table `wa_accessoires`
---
-ALTER TABLE `wa_accessoires`
-  ADD PRIMARY KEY (`id_accessoire`,`WA_contenu_demande_id_contenu_demande`),
-  ADD KEY `fk_WA_accessoires_WA_contenu_demande1_idx` (`WA_contenu_demande_id_contenu_demande`);
+INSERT INTO `wa_traitement` (`id_traitement`, `etat_traitement`, `classe_traitement`, `couleur_traitement`, `WA_contenu_demande_id_contenu_demande`) VALUES
+(80, '', '', '', 80),
+(81, '', '', '', 81),
+(82, 'n', 'nhofujhezfe4fe5z', 'noir', 82);
 
---
--- Index pour la table `wa_contenu_demande`
---
-ALTER TABLE `wa_contenu_demande`
-  ADD PRIMARY KEY (`id_contenu_demande`);
-
---
--- Index pour la table `wa_couleur`
---
-ALTER TABLE `wa_couleur`
-  ADD PRIMARY KEY (`id_couleur`,`WA_contenu_demande_id_contenu_demande`),
-  ADD KEY `fk_WA_couleur_WA_contenu_demande1_idx` (`WA_contenu_demande_id_contenu_demande`);
-
---
--- Index pour la table `wa_demande`
---
-ALTER TABLE `wa_demande`
-  ADD PRIMARY KEY (`id_demande`,`WA_contenu_demande_id_contenu_demande`),
-  ADD KEY `fk_WA_demande_WA_contenu_demande1_idx` (`WA_contenu_demande_id_contenu_demande`);
-
---
--- Index pour la table `wa_dimensions`
---
-ALTER TABLE `wa_dimensions`
-  ADD PRIMARY KEY (`id_dimensions`,`WA_contenu_demande_id_contenu_demande`),
-  ADD KEY `fk_WA_dimensions_WA_contenu_demande_idx` (`WA_contenu_demande_id_contenu_demande`);
-
---
--- Index pour la table `wa_famille`
---
-ALTER TABLE `wa_famille`
-  ADD PRIMARY KEY (`id_famille`);
-
---
--- Index pour la table `wa_longueur`
---
-ALTER TABLE `wa_longueur`
-  ADD PRIMARY KEY (`id_longueur`,`wa_nouvelle_longueur_id_nouvelle_longueur`),
-  ADD KEY `fk_wa_longueur_wa_nouvelle_longueur1_idx` (`wa_nouvelle_longueur_id_nouvelle_longueur`);
-
---
--- Index pour la table `wa_longueur_traitement`
---
-ALTER TABLE `wa_longueur_traitement`
-  ADD PRIMARY KEY (`id_longueur_traitement`,`wa_new_trtmt_ask_id_new_trtmt_ask`,`wa_new_trtmt_ask_wa_new_trtmt_id_new_trtmt`),
-  ADD KEY `fk_wa_longueur_traitement_wa_new_trtmt_ask1_idx` (`wa_new_trtmt_ask_id_new_trtmt_ask`,`wa_new_trtmt_ask_wa_new_trtmt_id_new_trtmt`);
-
---
--- Index pour la table `wa_marque_commercial`
---
-ALTER TABLE `wa_marque_commercial`
-  ADD PRIMARY KEY (`id_marque_commercial`,`WA_contenu_demande_id_contenu_demande`),
-  ADD KEY `fk_marque_commercial_WA_contenu_demande1_idx` (`WA_contenu_demande_id_contenu_demande`);
-
---
--- Index pour la table `wa_new_trtmt`
---
-ALTER TABLE `wa_new_trtmt`
-  ADD PRIMARY KEY (`id_new_trtmt`);
-
---
--- Index pour la table `wa_new_trtmt_ask`
---
-ALTER TABLE `wa_new_trtmt_ask`
-  ADD PRIMARY KEY (`id_new_trtmt_ask`,`wa_new_trtmt_id_new_trtmt`),
-  ADD KEY `fk_wa_new_trtmt_ask_wa_new_trtmt1_idx` (`wa_new_trtmt_id_new_trtmt`);
-
---
--- Index pour la table `wa_nouvelle_longueur`
---
-ALTER TABLE `wa_nouvelle_longueur`
-  ADD PRIMARY KEY (`id_nouvelle_longueur`);
-
---
--- Index pour la table `wa_sous_famille`
---
-ALTER TABLE `wa_sous_famille`
-  ADD PRIMARY KEY (`id_sous_famille`);
-
---
--- Index pour la table `wa_traitement`
---
-ALTER TABLE `wa_traitement`
-  ADD PRIMARY KEY (`id_traitement`,`WA_contenu_demande_id_contenu_demande`),
-  ADD KEY `fk_WA_traitement_WA_contenu_demande1_idx` (`WA_contenu_demande_id_contenu_demande`);
-
---
--- AUTO_INCREMENT pour les tables exportées
---
-
---
--- AUTO_INCREMENT pour la table `wa_accessoires`
---
-ALTER TABLE `wa_accessoires`
-  MODIFY `id_accessoire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
---
--- AUTO_INCREMENT pour la table `wa_contenu_demande`
---
-ALTER TABLE `wa_contenu_demande`
-  MODIFY `id_contenu_demande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
---
--- AUTO_INCREMENT pour la table `wa_couleur`
---
-ALTER TABLE `wa_couleur`
-  MODIFY `id_couleur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
---
--- AUTO_INCREMENT pour la table `wa_demande`
---
-ALTER TABLE `wa_demande`
-  MODIFY `id_demande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
---
--- AUTO_INCREMENT pour la table `wa_dimensions`
---
-ALTER TABLE `wa_dimensions`
-  MODIFY `id_dimensions` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
---
--- AUTO_INCREMENT pour la table `wa_famille`
---
-ALTER TABLE `wa_famille`
-  MODIFY `id_famille` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
---
--- AUTO_INCREMENT pour la table `wa_longueur`
---
-ALTER TABLE `wa_longueur`
-  MODIFY `id_longueur` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `wa_longueur_traitement`
---
-ALTER TABLE `wa_longueur_traitement`
-  MODIFY `id_longueur_traitement` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `wa_marque_commercial`
---
-ALTER TABLE `wa_marque_commercial`
-  MODIFY `id_marque_commercial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
---
--- AUTO_INCREMENT pour la table `wa_new_trtmt`
---
-ALTER TABLE `wa_new_trtmt`
-  MODIFY `id_new_trtmt` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `wa_new_trtmt_ask`
---
-ALTER TABLE `wa_new_trtmt_ask`
-  MODIFY `id_new_trtmt_ask` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `wa_nouvelle_longueur`
---
-ALTER TABLE `wa_nouvelle_longueur`
-  MODIFY `id_nouvelle_longueur` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `wa_sous_famille`
---
-ALTER TABLE `wa_sous_famille`
-  MODIFY `id_sous_famille` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=305;
---
--- AUTO_INCREMENT pour la table `wa_traitement`
---
-ALTER TABLE `wa_traitement`
-  MODIFY `id_traitement` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 --
 -- Contraintes pour les tables exportées
 --
@@ -792,7 +766,7 @@ ALTER TABLE `wa_longueur`
 -- Contraintes pour la table `wa_longueur_traitement`
 --
 ALTER TABLE `wa_longueur_traitement`
-  ADD CONSTRAINT `fk_wa_longueur_traitement_wa_new_trtmt_ask1` FOREIGN KEY (`wa_new_trtmt_ask_id_new_trtmt_ask`,`wa_new_trtmt_ask_wa_new_trtmt_id_new_trtmt`) REFERENCES `wa_new_trtmt_ask` (`id_new_trtmt_ask`, `wa_new_trtmt_id_new_trtmt`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_wa_longueur_traitement_wa_new_trtmt_ask1` FOREIGN KEY (`wa_new_trtmt_ask_id_new_trtmt_ask`, `wa_new_trtmt_ask_wa_new_trtmt_id_new_trtmt`) REFERENCES `wa_new_trtmt_ask` (`id_new_trtmt_ask`, `wa_new_trtmt_id_new_trtmt`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `wa_marque_commercial`

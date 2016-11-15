@@ -57,4 +57,6 @@
         </div>
 
 
-       <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Afficher/cacher le menu</a>
+        <a href="#menu-toggle" id="menu-toggle">
+          <i class="fa fa-align-left fa-3x" title="Align Left"></i>
+        </a>

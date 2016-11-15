@@ -13,6 +13,7 @@
 
   <link rel="stylesheet" href="<?= css_url('style'); ?>" media="screen" title="no title">
   <link rel="stylesheet" href="<?= css_url('simple-sidebar'); ?>" media="screen" title="no title">
+  <link rel="stylesheet" href="<?= fontAwesome_url(); ?>" media="screen" title="no title">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
@@ -56,4 +57,6 @@
         </div>
 
 
-       <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Afficher/cacher le menu</a>
+       <a href="#menu-toggle" id="menu-toggle">
+         <i class="fa fa-align-left fa-3x" title="Align Left"></i>
+       </a>
