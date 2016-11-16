@@ -68,18 +68,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-	<h1>Welcome to CodeIgniter!</h1>
+	<h1>Bienvenue sur l'application demande création article!</h1>
 
 	<div id="body">
-		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
+		<h3>l'application vous permet d'accéder à trois formulaires ainsi que les données associées à c'est formulaire.</h3>
+		<p>Plusieurs routes sont disponibles.</p>
 
-		<p>If you would like to edit this page you'll find it located at:</p>
-		<code>application/views/welcome_message.php</code>
+		<h2>Les formulaires</h2>
+		<h4>formulaire création article:</h4>
+		<code><a href="<?= site_url('formCodeArticle'); ?>">formCodeArticle</a></code>
 
-		<p>The corresponding controller for this page is found at:</p>
-		<code>application/controllers/Welcome.php</code>
+		<h4>formulaire nouvelle longueur:</h4>
+		<code><a href="<?= site_url('formNewLongueur'); ?>">formNewLongueur</a></code>
 
-		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
+		<h4>formulaire nouveau traitement:</h4>
+		<code><a href="<?=site_url('formNewTraitement'); ?>">formNewTraitement</a></code>
+
+		<h2>les données associées au formulaire</h2>
+		<h4>les données création article:</h4>
+		<code><a href="<?= site_url('dataCodeArticle'); ?>">dataCodeArticle</a></code>
+
+		<h4>les données nouvelle longueur:</h4>
+		<code><a href="<?= site_url('dataNewLongueur'); ?>">dataNewLongueur</a></code>
+
+		<h4>les données nouveau traitement:</h4>
+		<code><a href="<?= site_url('dataNewTraitement'); ?>">dataNewTraitement</a></code>
+
 	</div>
 
 	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>

@@ -22,6 +22,7 @@ class Data extends CI_Controller {
   	$this->load->view('formData/dataCodeArticle/data');
   	$this->load->view('header-footer/footer.php');
 	}
+
   public function getData()
   {
     $this->load->model('contenu_demande_model', 'contenuDemande');
