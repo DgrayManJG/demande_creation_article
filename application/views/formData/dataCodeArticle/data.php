@@ -22,11 +22,10 @@
 
         </p>
       </div>
-      <table class="table">
-        <thead class="thead-default">
+      <table id="example" class="table">
+        <thead>
           <tr>
             <th>ID</th>
-            <!-- <th></th> -->
             <th>gamme_produit</th>
             <th>volume_mois</th>
             <th>normes_environnementales</th>
@@ -35,11 +34,10 @@
             <th></th>
           </tr>
         </thead>
-        <?php foreach ($contenuDemande as $value): ?>
           <tbody>
+            <?php foreach ($contenuDemande as $value): ?>
             <tr>
-              <th scope="row"><?= $value->id_contenu_demande ?></th>
-              <!-- <td><input type="checkbox"></td> -->
+              <th><?= $value->id_contenu_demande ?></th>
               <td><?= $value->gamme_produit ?></td>
               <td><?= $value->volume_mois ?></td>
               <td><?= $value->normes_environnementales ?></td>
@@ -47,10 +45,11 @@
               <td><?= $value->libelle_sous_famille ?></td>
               <td><a href="<?= site_url('dataDetailCodeArticle/'.$value->id_contenu_demande); ?>"><button type="button" name="button" class="btn btn-secondary">Détail</button></a></td>
             </tr>
+              <?php endforeach; ?>
           </tbody>
-        <?php endforeach; ?>
       </table>
     </div>
   </div>
+
 
 </div>

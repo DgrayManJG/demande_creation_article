@@ -18,8 +18,9 @@ class Test extends CI_Controller
 	{
 		//redirect(array('error', 'probleme'));
     //$this->librairie_alphabet();
-		redirect('blog', 'refresh');
+		//redirect('blog', 'refresh');
 
+		$this->load->view('test/pagination_table');
 	}
 
 	public function librairie_alphabet()

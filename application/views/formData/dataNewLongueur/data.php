@@ -24,7 +24,7 @@
 
         </p>
       </div>
-      <table class="table">
+      <table id="example" class="table">
         <thead class="thead-default">
           <tr>
             <th>ID</th>
@@ -35,8 +35,8 @@
             <th></th>
           </tr>
         </thead>
-        <?php foreach ($newLongueur as $value): ?>
           <tbody>
+              <?php foreach ($newLongueur as $value): ?>
             <tr>
               <th scope="row"><?= $value->id_nouvelle_longueur ?></th>
               <!-- <td><input type="checkbox"></td> -->
@@ -45,8 +45,8 @@
               <td><?= $value->date_demande ?></td>
               <td><a href="<?= site_url('dataDetailNewLongueur/'.$value->id_nouvelle_longueur); ?>"><button type="button" name="button" class="btn btn-secondary">Détail</button></a></td>
             </tr>
+              <?php endforeach; ?>
           </tbody>
-        <?php endforeach; ?>
       </table>
     </div>
   </div>

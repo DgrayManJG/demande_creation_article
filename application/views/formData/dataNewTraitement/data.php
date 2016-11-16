@@ -1,8 +1,4 @@
-<?php
-echo "<pre>";
-//var_dump($newTraitement);
-echo "</pre>";
-?>
+
 <div class="form-group">
 
   <div class="container">
@@ -27,7 +23,7 @@ echo "</pre>";
 
         </p>
       </div>
-      <table class="table">
+      <table id="example" class="table">
         <thead class="thead-default">
           <tr>
             <th>ID</th>
@@ -38,8 +34,8 @@ echo "</pre>";
             <th></th>
           </tr>
         </thead>
-        <?php foreach ($newTraitement as $value): ?>
           <tbody>
+            <?php foreach ($newTraitement as $value): ?>
             <tr>
               <th scope="row"><?= $value->id_new_trtmt ?></th>
               <!-- <td><input type="checkbox"></td> -->
@@ -48,8 +44,8 @@ echo "</pre>";
               <td><?= $value->date_demande ?></td>
               <td><a href="<?= site_url('dataDetailNewTraitement/'.$value->id_new_trtmt); ?>"><button type="button" name="button" class="btn btn-secondary">Détail</button></a></td>
             </tr>
+            <?php endforeach; ?>
           </tbody>
-        <?php endforeach; ?>
       </table>
     </div>
   </div>
