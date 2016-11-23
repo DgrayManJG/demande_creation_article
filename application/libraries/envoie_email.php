@@ -7,7 +7,7 @@ class Envoie_email {
 
 
   		$email->from('jimmy.guevel@groupe-isb.fr', 'Jimmy');
-  		$email->to('jimmy.guevel@groupe-isb.fr');
+  		$email->to('sylvain.demaure@groupe-isb.fr');
   		//$this->email->cc('jimmy.guevel@groupe-isb.fr');
 
       $message = '<head>
@@ -96,9 +96,9 @@ class Envoie_email {
 
      public function send_mail_for_new_trtmt($email, $demandeur, $motif_demande, $code_article_citis, $libelle_article_citis){
 
-   		$email->from('jimmy.guevel@groupe-isb.fr', 'Jimmy');
-   		$email->to('jimmy.guevel@groupe-isb.fr');
-   		//$this->email->cc('jimmy.guevel@groupe-isb.fr');
+       $email->from('jimmy.guevel@groupe-isb.fr', 'Jimmy');
+   		$email->to('sylvain.demaure@groupe-isb.fr');
+   		$this->email->cc('jimmy.guevel@groupe-isb.fr');
 
        $message = '<head>
                              <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -184,9 +184,9 @@ class Envoie_email {
 
       public function send_mail_for_new_longueur($email, $demandeur, $motif_demande, $code_article_citis, $libelle_article_citis){
 
-    		$email->from('jimmy.guevel@groupe-isb.fr', 'Jimmy');
-    		$email->to('jimmy.guevel@groupe-isb.fr');
-    		//$this->email->cc('jimmy.guevel@groupe-isb.fr');
+        $email->from('jimmy.guevel@groupe-isb.fr', 'Jimmy');
+    		$email->to('sylvain.demaure@groupe-isb.fr');
+    		$this->email->cc('jimmy.guevel@groupe-isb.fr');
 
         $message = '<head>
                               <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
